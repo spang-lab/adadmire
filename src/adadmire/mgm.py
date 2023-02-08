@@ -18,7 +18,7 @@
 # SOFTWARE.
 
 import numpy as np
-import apgpy as apg
+import adadmire.apgpy as apg
 
 def grad_neglogli(B, Rho, Phi, alphap, alphaq, X, D, levels):
     n = X.shape[0]
