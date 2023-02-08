@@ -13,6 +13,30 @@ pip install git+https://github.com/yhat/ggplot.git
 
 ## Usage
 
+⚠️Attention: this section is currently in draft mode, i.e. the listed examples are **not yet** working and must be updated first.
+<!-- TODO -->
+
+### Example 1
+
+```python
+from adadmire import loo_cv_cor, get_threshold_continuous, get_threshold_discrete
+import numpy as np
+
+X = np.load('C:/Users/l_buc/paper_mgm/val_wolfram/data/scaled.npy')
+D = np.load('C:/Users/l_buc/paper_mgm/val_wolfram/data/bm.npy')
+levels = np.load('C:/Users/l_buc/paper_mgm/val_wolfram/data/levels_bm.npy')
+lam_zero = np.sqrt(np.log(X.shape[1] + D.shape[1]/2)/X.shape[0])
+lam_seq = np.array([-2.0,-2.25])
+lam = [pow(2, x) for x in lam_seq]
+lam = np.array(lam)
+lam = lam_zero * lam
+prob_hat, B_m, lam_opt,  x_hat_cor_xp, d_hat_cor_xp = loo_cv_cor(X,D,levels,lam)
+X_cor, threshold, n_ano,  ano_index = get_threshold_continuous(X, x_hat_cor_xp, B_m)
+n_ano, threshold, pos = get_threshold_discrete(D, levels, d_hat_cor_xp)
+```
+
+### Example 2
+
 ```python
 import adadmire
 import sklearn.datasets
@@ -33,34 +57,8 @@ print(ca)
 X_corrected = adadmire.correct_anomalies(X)
 ```
 
-## Questions, Feature-Requests, Bugs
+## Contribute
 
-In case you have questions, feature requests or find any bugs in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://gitlab.spang-lab.de/bul38390/admire/issues).
+In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://gitlab.spang-lab.de/bul38390/admire/issues).
 
-## Contribute code
-
-In case you want to write code for this package, please create an [Issue](https://gitlab.spang-lab.de/bul38390/admire/issues) first, in which you describe your planned code contribution. After acceptance of your proposal by an active maintainer of the repository you will get permissions to create branches for this repository. After this, please follow the steps outlined in the following subsections to create new versions of adadmire.
-
-🗒️Note: all following subsections are based on <https://packaging.python.org/en/latest/tutorials/packaging-projects/>.
-
-⚠️Important: all commands mentioned in the following subsections should be run from the root folder of this repository.
-
-
-### Build the package:
-
-* Run command `python -m pip install --upgrade build twine` to install modules [build](https://pypi.org/project/build/) and [twine](https://pypi.org/project/twine/) (required for building and uploading of packages) 
-* Run command `python -m build` to generate pre-built version of your package (`dist/adadmire*.whl`) as well as a source version of your package (`dist/adadmire*.tar.gz`)
-
-### Upload to PyPI Test Server
-
-This step is optional and only required if you want to try out the upload and following installation.
-
-* Run command `python3 -m twine upload --repository testpypi dist/*` to upload your package to [test.pypi.org](https://test.pypi.org/). **Important**: for this to work, you need to create an account at [test.pypi.org](https://test.pypi.org/) first! Please also note, that you need two separate accounts for [test.pypi.org](https://test.pypi.org/) and [pypi.org](https://pypi.org/).
-* Check that your new version is listed at [test.pypi.org/project/adadmire](https://test.pypi.org/project/adadmire)
-* Run command `py -m pip install --upgrade --index-url https://test.pypi.org/simple/ --no-deps adadmire` to check that your new version can be installed via pip
-
-### Upload to PyPI Production Server
-
-* Run command `python3 -m twine upload dist/*` to upload your package to [test.pypi.org](https://test.pypi.org/). **Important**: for this to work, you need to create an account at [pypi.org](https://pypi.org/) first! Please also note, that you need two separate accounts for [pypi.org](https://pypi.org/) and [test.pypi.org](https://test.pypi.org/).
-* Check that your new version is listed at [pypi.org/project/adadmire](https://pypi.org/project/adadmire)
-* Run command `py -m pip install --upgrade adadmire` to check that your new version can be installed via pip
+In case you want to **write code** for this package, see [Contribute](doc/contribute.md) for details.
