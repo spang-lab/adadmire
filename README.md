@@ -1,5 +1,7 @@
 # adadmire
 
+<!-- ATTENTION: this file will be displayed not only on Github, but also on PyPI, so NO relative relative to files in the repo must be used -->
+
 Functions for detecting anomalies in tabular datasets using Mixed Graphical Models.
 
 ## Installation
@@ -59,6 +61,6 @@ X_corrected = adadmire.correct_anomalies(X)
 
 ## Contribute
 
-In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://gitlab.spang-lab.de/bul38390/admire/issues).
+In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://github.com/spang-lab/adadmire/issues).
 
-In case you want to **write code** for this package, see [Contribute](doc/contribute.md) for details.
+In case you want to **write code** for this package, see [Contribute]([doc/contribute.md](https://github.com/spang-lab/adadmire/blob/main/doc/contribute.md)) for details.

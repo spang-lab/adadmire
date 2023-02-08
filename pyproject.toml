@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "adadmire"
-version = "0.0.5"
+version = "0.0.9"
 authors = [
   { name="Lena Buck", email="lena.buck@ukr.de" },
   { name="Tobias Schmidt", email="tobias2.schmidt@ukr.de" },
@@ -20,5 +20,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://gitlab.spang-lab.de/bul38390/admire"
-"Bug Tracker" = "https://gitlab.spang-lab.de/bul38390/admire/issues"
+"Homepage" = "https://github.com/spang-lab/adadmire"
+"Bug Tracker" = "https://github.com/spang-lab/adadmire/issues"
