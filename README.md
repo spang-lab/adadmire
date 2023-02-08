@@ -23,7 +23,7 @@ In the directory **data** you can find two sub directories:
     *  **pheno.npy**: numpy file corresponding to **pheno_with_simulations.xlsx** (only contains variables batch and myc)
     *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
 * **Higuera_et_al**: contains data set as discribed in (cite1, cite3).
-       * **data_raw.xlsx**: raw, unscaled data, contains measurements of 400 samples and 68 proteins (downsamples from cite3)
+    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 400 samples and 68 proteins (downsamples from cite3)
     *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
     *  **pheno_.xlsx**: pheno data corresponding to **data_raw.xlsx**
     *  **pheno.npy**: numpy file corresponding to **pheno.xlsx**
