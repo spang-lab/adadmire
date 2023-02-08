@@ -27,7 +27,7 @@ All above commands in short
 ```bash
 python -m pip install --upgrade build twine wheel # Update packages
 rm dist/* # Clean dist folder
-python -m build # Build package
+python -m build # Build package. IMPORTANT: version updated in pyproject.toml?
 # IF POWERSHELL
 $whl=$(ls ./dist/adadmire-*-py3-none-any.whl).FullName
 python -m pip install $whl # Test installation locally

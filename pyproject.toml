@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "adadmire"
-version = "0.0.9"
+version = "0.0.10"
 authors = [
   { name="Lena Buck", email="lena.buck@ukr.de" },
   { name="Tobias Schmidt", email="tobias2.schmidt@ukr.de" },
