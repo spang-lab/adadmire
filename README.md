@@ -10,7 +10,6 @@ Enter the following commands in a shell like *bash*, *zsh* or *powershell*:
 
 ```bash
 pip install -U adadmire
-pip install git+https://github.com/yhat/ggplot.git
 ```
 
 ## Usage
@@ -63,4 +62,4 @@ X_corrected = adadmire.correct_anomalies(X)
 
 In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://github.com/spang-lab/adadmire/issues).
 
-In case you want to **write code** for this package, see [Contribute]([doc/contribute.md](https://github.com/spang-lab/adadmire/blob/main/doc/contribute.md)) for details.
+In case you want to **write code** for this package, see [Contribute](https://github.com/spang-lab/adadmire/blob/main/doc/contribute.md) for details.
