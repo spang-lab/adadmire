@@ -30,26 +30,33 @@ In the directory **data** you can find two sub directories:
     *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
 ## Usage
 
-⚠️Attention: this section is currently in draft mode, i.e. the listed examples are **not yet** working and must be updated first.
-<!-- TODO -->
-
 ### Example 1
 
 ```python
 from adadmire import loo_cv_cor, get_threshold_continuous, get_threshold_discrete
 import numpy as np
 
-X = np.load('C:/Users/l_buc/paper_mgm/val_wolfram/data/scaled.npy')
-D = np.load('C:/Users/l_buc/paper_mgm/val_wolfram/data/bm.npy')
-levels = np.load('C:/Users/l_buc/paper_mgm/val_wolfram/data/levels_bm.npy')
+# download data/Feist_et_al 
+# and load data
+X = np.load('data/Feist_et_al/scaled_data_raw.npy') # continuous data
+D = np.load('data/Feist_et_al/pheno.npy') # discrete data
+level = np.load('data/Feist_et_al/levels.npy') # levels of discrete variables
+# define lambda sequence
 lam_zero = np.sqrt(np.log(X.shape[1] + D.shape[1]/2)/X.shape[0])
-lam_seq = np.array([-2.0,-2.25])
+lam_seq = np.array([-1.75,-2.0,-2.25])
 lam = [pow(2, x) for x in lam_seq]
 lam = np.array(lam)
 lam = lam_zero * lam
-prob_hat, B_m, lam_opt,  x_hat_cor_xp, d_hat_cor_xp = loo_cv_cor(X,D,levels,lam)
-X_cor, threshold, n_ano,  ano_index = get_threshold_continuous(X, x_hat_cor_xp, B_m)
-n_ano, threshold, pos = get_threshold_discrete(D, levels, d_hat_cor_xp)
+# perform cross validation 
+prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X,D,levels,lam)
+# determine continuous threshold 
+X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X, x_hat, B_m)
+# returns: X corrected for detected anomalies, threshold, number of detected anomalies (n_ano_cont) and position
+print(n_ano_cont) # 46 detected continuous anomalies
+n_ano_disc, threshold_cont, position_disc = get_threshold_discrete(D, levels, d_hat)
+# returns:  number of detected anomalies (n_ano_disc), threshold and position
+print(n_ano_disc)
+# 0 detected discrete anomalies
 ```
 
 ### Example 2
