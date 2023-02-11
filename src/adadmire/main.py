@@ -215,3 +215,62 @@ def get_threshold_discrete(D, levels, D_hat):
     pos = np.array([ind[0][np.where(observed_scores >= threshold)],
                    ind[1][np.where(observed_scores >= threshold)]])
     return (n_ano, threshold, pos)
+
+def transform_data(
+        X
+):
+    X_trans  = (X-X.min(axis = 0))/(X.max(axis=0) - X.min(axis=0))
+    return(X_trans)
+
+def transform_back(
+        X,
+        X_scaled
+):
+    X_back = X_scaled + (X.max(axis=0) - X.min(axis=0)) + X.min(axis=0)
+    return(X_back)
+
+def rel_dev(x, org):
+    return(abs((x-org)/org))
+
+def place_anomalies_continuous(
+        X,
+        n_ano,
+        epsilon
+):
+    random.seed(123)
+    # first transform data feature-wise to [0,1]
+    X_scaled = transform_data(X)
+    # Calculate 15% border
+    Z = (0.15*X) / (X.max(axis=0) - X.min(axis=0))
+    ano = np.copy(X)
+    # for each element in X sample shift
+    for i in range(X.shape[0]):
+        for j in range(X.shape[1]):
+            lc = random.uniform( Z[i,j],(Z[i,j]+X_scaled[i,j]))
+            uc = random.uniform( Z[i,j],(1-Z[i,j]-X_scaled[i,j]))
+            # decide whether lower or upper change
+            dir = random.randint(0,1)
+            if dir == 1:
+                ano[i,j] = X_scaled[i,j] + epsilon*uc
+            else:
+                ano[i,j] = X_scaled[i,j] - epsilon * lc
+    # transform anomalies back
+    ano_retrans = transform_back(X, ano)
+    # place anomalies
+    position = np.array([])
+    position.shape = (0,2)
+    X_ano = np.copy(X)
+    k = 0
+    while k < n_ano:
+        # sample position
+        row = random.randint(0, (X.shape[0]-1))
+        col = random.randint(0, (X.shape[1]-1))
+        # first check if anomaly already has been placed at that position
+        if sum((position == [[row,col]]).all(axis = 1)) == 0:
+            # check if introduced anomaly > 15% deviation (only for epsilon < 1 relevant)
+            if rel_dev(ano_retrans[row,col],X[row,col]) >= 0.15:
+                k = k+1
+                position = np.append(position, [[row, col]], axis = 0)
+                X_ano[row, col] = ano_retrans[row,col]
+    return(X_ano, position)
+
