@@ -40,7 +40,7 @@ import numpy as np
 # and load data
 X = np.load('data/Feist_et_al/scaled_data_raw.npy') # continuous data
 D = np.load('data/Feist_et_al/pheno.npy') # discrete data
-level = np.load('data/Feist_et_al/levels.npy') # levels of discrete variables
+levels = np.load('data/Feist_et_al/levels.npy') # levels of discrete variables
 # define lambda sequence
 lam_zero = np.sqrt(np.log(X.shape[1] + D.shape[1]/2)/X.shape[0])
 lam_seq = np.array([-1.75,-2.0,-2.25])
@@ -62,23 +62,28 @@ print(n_ano_disc)
 ### Example 2
 
 ```python
-import adadmire
-import sklearn.datasets
+from adadmire import loo_cv_cor, get_threshold_continuous, get_threshold_discrete, place_anomalies_continuous
+import numpy as np
 
-# load diabetes dataset from sklearn
-diab = sklearn.datasets.load_diabetes()
-# 442x4 matrix with scaled features: age, sex, bmi, blood pressure
-X = diab.data[:, 1:4]
-y = diab.target
-# Lets introduce some faulty entries
-X[100, 1] = 0.8
-X[200, 2] = 0.7
-X[300, 3] = 0.1
-X[400, 4] = 0.2
-# Lets detect (and correct) them using adadmire
-ca = adadmire.detect_anomalies(X)
-print(ca)
-X_corrected = adadmire.correct_anomalies(X)
+# download data/Higuera_et_al 
+# and load data
+X = np.load('data/Higuera_et_al/scaled_data_raw.npy') # continuous data
+D = np.load('data/Higuera_et_al/pheno.npy') # discrete data
+levels = np.load('data/Higuera_et_al/levels.npy') # levels of discrete variables
+
+# use originial data set and create simulation by introducing artificial anomalies
+X_ano = place_anomalies_continuous( X, n_ano = 1360, epsilon = 1.2)
+# n_ano: how many anomalies should be introduced?
+# epsilon defines "strength" of introduced anomalies
+
+# now detect anomalies using ADMIRE
+lam_zero = np.sqrt(np.log(X.shape[1] + D.shape[1]/2)/X.shape[0])
+lam_seq = np.array([-1.75,-2.0,-2.25])
+lam = [pow(2, x) for x in lam_seq]
+lam = np.array(lam)
+lam = lam_zero * lam
+prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X_ano,D,levels,lam)
+X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X_ano, x_hat, B_m)
 ```
 
 ## Contribute
