@@ -144,6 +144,12 @@ def loo_cv_cor(X, D, levels, lam_seq, oIterations=10000, oTol=1e-6, t=0.05):
 
     if (MSE < MSE_old):
         print('Minimum not found, choose smaller Lam sequence')
+    if (np.size(lam_seq) == 1): # in case only one lambda submitted
+        X_hat_cor_xp_old = np.copy(X_hat_cor_xp)
+        D_hat_cor_xp_old = np.copy(D_hat_cor_xp)
+        prob_cont_old = np.copy(prob_cont)
+        Var_old = np.copy(Var)
+
     return (prob_cont_old, Var_old, lam_opt_old, X_hat_cor_xp_old, D_hat_cor_xp_old)
 
 

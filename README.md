@@ -2,7 +2,7 @@
 
 <!-- ATTENTION: this file will be displayed not only on Github, but also on PyPI, so NO relative relative to files in the repo must be used -->
 
-Functions for detecting anomalies in tabular datasets using Mixed Graphical Models.
+Functions for detecting anomalies in molecular data sets using Mixed Graphical Models.
 
 ## Installation
 
@@ -16,18 +16,24 @@ pip install -U adadmire
 ## Data
 
 In the directory **data** you can find two sub directories: 
-* **Feist_et_al**: contains data set as discribed in (cite1, cite2). 
+* **Feist_et_al**: contains data set as discribed in Feist et al, 2018[^feist2018] and Buck et al, 2023 [^buck2023]. 
     * **data_raw.xlsx**: raw, unscaled data, contains measurements of 100 samples and 49 metabolites
     *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
     *  **pheno_with_simulations.xlsx**: pheno data corresponding to **data_raw.xlsx**, also contains cell stimulations
     *  **pheno.npy**: numpy file corresponding to **pheno_with_simulations.xlsx** (only contains variables batch and myc)
     *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
-* **Higuera_et_al**: contains data set as discribed in (cite1, cite3).
-    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 400 samples and 68 proteins (downsamples from cite3)
+* **Higuera_et_al**: contains down sampled data set from Higuera et al,2015 [^higuera2015] as described in Buck et al,    2023[^buck2023].
+    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 400 samples and 68 proteins (down sampled from        [^higuera2015])
     *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
     *  **pheno_.xlsx**: pheno data corresponding to **data_raw.xlsx**
     *  **pheno.npy**: numpy file corresponding to **pheno.xlsx**
     *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
+    
+[^feist2018]: Feist, Maren, et al. "Cooperative stat/nf-kb signaling regulates lymphoma metabolic reprogramming and   aberrant got2 expression." Nature Communications, 2018
+[^higuera2015]: Higuera, Clara et al, "Self-organizing feature maps identify proteins critical to learning in a mouse model of down syndrome." PLOS ONE, 2015
+[^buck2023]: Buck, Lena, et al. "Anomaly detection in mixed high dimensional molecular data"
+
+  
 ## Usage
 
 ### Example 1
