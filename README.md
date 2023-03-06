@@ -12,24 +12,9 @@ Enter the following commands in a shell like *bash*, *zsh* or *powershell*:
 pip install -U adadmire
 ```
 
-
-## Data
-
-In the directory **data** you can find two sub directories:
-* **Feist_et_al**: contains data set as discribed in [Feist et al, 2018](#feist-et-al-2018) and [Buck et al, 2023](#buck-et-al-2023).
-    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 100 samples and 49 metabolites
-    *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
-    *  **pheno_with_simulations.xlsx**: pheno data corresponding to **data_raw.xlsx**, also contains cell stimulations
-    *  **pheno.npy**: numpy file corresponding to **pheno_with_simulations.xlsx** (only contains variables batch and myc)
-    *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
-* **Higuera_et_al**: contains down sampled data set from [Higuera et al, 2015](#higuera-et-al-2015) as described in [Buck et al, 2023](#buck-et-al-2023).
-    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 400 samples and 68 proteins (down sampled from [Higuera et al, 2015](#higuera-et-al-2015))
-    *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
-    *  **pheno_.xlsx**: pheno data corresponding to **data_raw.xlsx**
-    *  **pheno.npy**: numpy file corresponding to **pheno.xlsx**
-    *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
-
 ## Usage
+
+The usage example in this section require you to download the data files from folder [data](https://github.com/spang-lab/adadmire/tree/main/data) first. For a description of the contents of this folder, see section [Data](#data).
 
 ### Example 1
 
@@ -87,6 +72,22 @@ prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X_ano,D,levels,lam)
 X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X_ano, x_hat, B_m)
 ```
 
+### Data
+
+In the directory **data** you can find two sub directories:
+* **Feist_et_al**: contains data set as discribed in [Feist et al, 2018](#feist-et-al-2018) and [Buck et al, 2023](#buck-et-al-2023).
+    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 100 samples and 49 metabolites
+    *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
+    *  **pheno_with_simulations.xlsx**: pheno data corresponding to **data_raw.xlsx**, also contains cell stimulations
+    *  **pheno.npy**: numpy file corresponding to **pheno_with_simulations.xlsx** (only contains variables batch and myc)
+    *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
+* **Higuera_et_al**: contains down sampled data set from [Higuera et al, 2015](#higuera-et-al-2015) as described in [Buck et al, 2023](#buck-et-al-2023).
+    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 400 samples and 68 proteins (down sampled from [Higuera et al, 2015](#higuera-et-al-2015))
+    *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
+    *  **pheno_.xlsx**: pheno data corresponding to **data_raw.xlsx**
+    *  **pheno.npy**: numpy file corresponding to **pheno.xlsx**
+    *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
+
 ## Contribute
 
 In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://github.com/spang-lab/adadmire/issues).
@@ -95,14 +96,14 @@ In case you want to **write code** for this package, see [Contribute](https://gi
 
 ## References
 
-###### Feist et al, 2018
+##### Feist et al, 2018
 
 Feist, Maren, et al. "Cooperative stat/nf-kb signaling regulates lymphoma metabolic reprogramming and aberrant got2 expression." Nature Communications, 2018
 
-###### Higuera et al, 2015
+##### Higuera et al, 2015
 
 Higuera, Clara et al, "Self-organizing feature maps identify proteins critical to learning in a mouse model of down syndrome." PLOS ONE, 2015
 
-###### Buck et al, 2023
+##### Buck et al, 2023
 
 Buck, Lena et al. "Anomaly detection in mixed high dimensional molecular data"
