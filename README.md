@@ -15,25 +15,20 @@ pip install -U adadmire
 
 ## Data
 
-In the directory **data** you can find two sub directories: 
-* **Feist_et_al**: contains data set as discribed in Feist et al, 2018[^feist2018] and Buck et al, 2023 [^buck2023]. 
+In the directory **data** you can find two sub directories:
+* **Feist_et_al**: contains data set as discribed in [Feist et al, 2018](#feist-et-al-2018) and [Buck et al, 2023](#buck-et-al-2023).
     * **data_raw.xlsx**: raw, unscaled data, contains measurements of 100 samples and 49 metabolites
     *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
     *  **pheno_with_simulations.xlsx**: pheno data corresponding to **data_raw.xlsx**, also contains cell stimulations
     *  **pheno.npy**: numpy file corresponding to **pheno_with_simulations.xlsx** (only contains variables batch and myc)
     *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
-* **Higuera_et_al**: contains down sampled data set from Higuera et al,2015 [^higuera2015] as described in Buck et al,    2023[^buck2023].
-    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 400 samples and 68 proteins (down sampled from        [^higuera2015])
+* **Higuera_et_al**: contains down sampled data set from [Higuera et al, 2015](#higuera-et-al-2015) as described in [Buck et al, 2023](#buck-et-al-2023).
+    * **data_raw.xlsx**: raw, unscaled data, contains measurements of 400 samples and 68 proteins (down sampled from [Higuera et al, 2015](#higuera-et-al-2015))
     *  **scaled_data_raw.npy**: numpy file containing scaled version of **data_raw.xlsx**
     *  **pheno_.xlsx**: pheno data corresponding to **data_raw.xlsx**
     *  **pheno.npy**: numpy file corresponding to **pheno.xlsx**
     *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
-    
-[^feist2018]: Feist, Maren, et al. "Cooperative stat/nf-kb signaling regulates lymphoma metabolic reprogramming and   aberrant got2 expression." Nature Communications, 2018
-[^higuera2015]: Higuera, Clara et al, "Self-organizing feature maps identify proteins critical to learning in a mouse model of down syndrome." PLOS ONE, 2015
-[^buck2023]: Buck, Lena, et al. "Anomaly detection in mixed high dimensional molecular data"
 
-  
 ## Usage
 
 ### Example 1
@@ -42,7 +37,7 @@ In the directory **data** you can find two sub directories:
 from adadmire import loo_cv_cor, get_threshold_continuous, get_threshold_discrete
 import numpy as np
 
-# download data/Feist_et_al 
+# download data/Feist_et_al
 # and load data
 X = np.load('data/Feist_et_al/scaled_data_raw.npy') # continuous data
 D = np.load('data/Feist_et_al/pheno.npy') # discrete data
@@ -53,9 +48,9 @@ lam_seq = np.array([-1.75,-2.0,-2.25])
 lam = [pow(2, x) for x in lam_seq]
 lam = np.array(lam)
 lam = lam_zero * lam
-# perform cross validation 
+# perform cross validation
 prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X,D,levels,lam)
-# determine continuous threshold 
+# determine continuous threshold
 X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X, x_hat, B_m)
 # returns: X corrected for detected anomalies, threshold, number of detected anomalies (n_ano_cont) and position
 print(n_ano_cont) # 46 detected continuous anomalies
@@ -71,7 +66,7 @@ print(n_ano_disc)
 from adadmire import loo_cv_cor, get_threshold_continuous, get_threshold_discrete, place_anomalies_continuous
 import numpy as np
 
-# download data/Higuera_et_al 
+# download data/Higuera_et_al
 # and load data
 X = np.load('data/Higuera_et_al/scaled_data_raw.npy') # continuous data
 D = np.load('data/Higuera_et_al/pheno.npy') # discrete data
@@ -97,3 +92,17 @@ X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X_a
 In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://github.com/spang-lab/adadmire/issues).
 
 In case you want to **write code** for this package, see [Contribute](https://github.com/spang-lab/adadmire/blob/main/doc/contribute.md) for details.
+
+## References
+
+###### Feist et al, 2018
+
+Feist, Maren, et al. "Cooperative stat/nf-kb signaling regulates lymphoma metabolic reprogramming and aberrant got2 expression." Nature Communications, 2018
+
+###### Higuera et al, 2015
+
+Higuera, Clara et al, "Self-organizing feature maps identify proteins critical to learning in a mouse model of down syndrome." PLOS ONE, 2015
+
+###### Buck et al, 2023
+
+Buck, Lena et al. "Anomaly detection in mixed high dimensional molecular data"

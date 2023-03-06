@@ -38,6 +38,7 @@ python -m twine upload --repository testpypi dist/* # Upload to test server
 python -m pip install --upgrade --index-url https://test.pypi.org/simple/ --no-deps adadmire
 python -m twine upload dist/* # Upload to production server
 python -m pip install --upgrade adadmire # Test installation from server
+# IMPORTANT: do not forget to push your changes to Github as well ;)
 ```
 
 ## Tips and Tricks
