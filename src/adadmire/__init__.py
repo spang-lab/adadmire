@@ -4,5 +4,6 @@ from adadmire.main import (
     loo_cv_cor,
     pred_continuous,
     pred_discrete,
-    place_anomalies_continuous
+    place_anomalies_continuous,
+    impute
 )

@@ -48,17 +48,14 @@ print(n_ano_disc)
 ### Example 2
 
 ```python
-from adadmire import loo_cv_cor, get_threshold_continuous, get_threshold_discrete, place_anomalies_continuous
+from adadmire import loo_cv_cor, get_threshold_continuous, place_anomalies_continuous
 import numpy as np
-
-# download data/Higuera_et_al
-# and load data
 X = np.load('data/Higuera_et_al/scaled_data_raw.npy') # continuous data
 D = np.load('data/Higuera_et_al/pheno.npy') # discrete data
 levels = np.load('data/Higuera_et_al/levels.npy') # levels of discrete variables
 
-# use originial data set and create simulation by introducing artificial anomalies
-X_ano = place_anomalies_continuous( X, n_ano = 1360, epsilon = 1.2)
+# use originial data set and create simulations by introducing artificial anomalies with various strengths
+X_ano, pos = place_anomalies_continuous( X, n_ano = 1360, epsilon = np.array([0.6, 0.8, 1.0, 1.2, 1.4]))
 # n_ano: how many anomalies should be introduced?
 # epsilon defines "strength" of introduced anomalies
 
@@ -68,8 +65,8 @@ lam_seq = np.array([-1.75,-2.0,-2.25])
 lam = [pow(2, x) for x in lam_seq]
 lam = np.array(lam)
 lam = lam_zero * lam
-prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X_ano,D,levels,lam)
-X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X_ano, x_hat, B_m)
+prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X_ano[0],D,levels,lam) # perform cv and estimation 
+X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X_ano, x_hat, B_m) # determine threshold
 ```
 
 ### Data
