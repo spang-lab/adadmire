@@ -69,6 +69,37 @@ prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X_ano[0],D,levels,lam) # perf
 X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X_ano, x_hat, B_m) # determine threshold
 ```
 
+### Example 3
+
+```python
+from adadmire import impute
+import numpy as np
+
+# load data containing missing values in continuous
+X = np.load('data/Higuera_et_al/data_na_scaled.npy')
+# as well as in discrete features
+D = np.load('data/Higuera_et_al/pheno_na.npy')
+
+print(np.sum(np.isnan(X))) # 1360
+print(np.sum(np.isnan(D))) # 120
+
+levels = np.load('data/Higuera_et_al/levels.npy') # levels of discrete variables
+
+# define Lambda sequence
+lam_zero = np.sqrt(np.log(X.shape[1] + D.shape[1]/2)/X.shape[0])
+lam_seq = np.array([-1.75,-2.0,-2.25])
+lam = [pow(2, x) for x in lam_seq]
+lam = np.array(lam)
+lam = lam_zero * lam
+
+# now impute with ADMIRE
+X_imp, D_imp,lam_o = impute(X,D,levels,lam)
+
+print(np.sum(np.isnan(X_imp))) # 0
+print(np.sum(np.isnan(D_imp))) # 0
+```
+
+
 ### Data
 
 In the directory **data** you can find two sub directories:
