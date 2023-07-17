@@ -99,7 +99,6 @@ print(np.sum(np.isnan(X_imp))) # 0
 print(np.sum(np.isnan(D_imp))) # 0
 ```
 
-
 ### Data
 
 In the directory **data** you can find two sub directories:
@@ -117,7 +116,7 @@ In the directory **data** you can find two sub directories:
     *  **levels.npy**: numpy file containing the levels of the discrete variables in **pheno.npy**
     *  **data_na_scaled.npy**: numpy file containing scaled version of **data_raw.xlsx** where 5% of the values are missing
     *  **pheno_na.npy**: numpy file corresponding to **pheno.xlsx** with 5% of missing values included
-    
+
 ## Contribute
 
 In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://github.com/spang-lab/adadmire/issues).
