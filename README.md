@@ -99,6 +99,10 @@ print(np.sum(np.isnan(X_imp))) # 0
 print(np.sum(np.isnan(D_imp))) # 0
 ```
 
+### Example 4
+
+This is a cool example.
+
 ### Data
 
 In the directory **data** you can find two sub directories:
