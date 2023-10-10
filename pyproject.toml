@@ -10,7 +10,9 @@ authors = [
   { name="Tobias Schmidt", email="tobias2.schmidt@ukr.de" },
 ]
 description = "Functions for detecting anomalies in tabular datasets using Mixed Graphical Models."
-dependencies = []
+dependencies = [
+  "scipy >= 1, < 2",
+]
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
