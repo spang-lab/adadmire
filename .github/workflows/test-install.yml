@@ -23,8 +23,7 @@ jobs:
         run: python -m build
       - name: Install package
         run: |
-          ls -hal
-          pip install ./adadmire-1.0.2.tar.gz
+          python -m pip install ./dist/adadmire-*-py3-none-any.whl
       - name: Import package
         run: |
           python -c "import adadmire"
