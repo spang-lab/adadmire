@@ -4,8 +4,6 @@ name: Upload Package
 on:
   release:
     types: [published]
-  push:
-    branches: [deploy]
 jobs:
   build:
     runs-on: ubuntu-latest
