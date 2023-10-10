@@ -4,13 +4,16 @@ build-backend = "hatchling.build"
 
 [project]
 name = "adadmire"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
   { name="Lena Buck", email="lena.buck@ukr.de" },
   { name="Tobias Schmidt", email="tobias2.schmidt@ukr.de" },
 ]
 description = "Functions for detecting anomalies in tabular datasets using Mixed Graphical Models."
-dependencies = []
+dependencies = [
+  "scipy >= 1, < 2",
+  "scikit-learn >= 1, <2",
+]
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
