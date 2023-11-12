@@ -1,3 +1,4 @@
+"""adadmire: Anomaly detection in mixed high-dimensional molecular data."""
 from adadmire.main import (
     get_threshold_continuous,
     get_threshold_discrete,
