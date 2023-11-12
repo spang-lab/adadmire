@@ -4,25 +4,55 @@ import numpy as np
 import random
 from sklearn.metrics.pairwise import nan_euclidean_distances
 
+__version__ = "1.0.0"
+
+
 def pred_continuous(B, Rho, alphap, D_pred, X_pred):
+    """Predict continuous values given estimated 
+    parameters of MGM and discrete values.
+
+    Args:
+        - B (numpy.ndarray): Matrix B.
+        - Rho (numpy.ndarray): Continuous-discrete couplings.
+        - alphap (numpy.ndarray): Continuous node potentials.
+        - D_pred (numpy.ndarray): Vector of discrete states.
+        - X_pred (numpy.ndarray): Vector of continuous values that should be estimated.
+
+    Returns:
+        numpy.ndarray: Predicted continuous values.
+    """
     ind = np.array(D_pred) == 1
-    # for all features sum over rho (sum rho_sj(y_j))
     r_sum = np.array([])
     for k in range(0, Rho.shape[1]):
         tmp = sum(Rho[ind, k])
         r_sum = np.append(r_sum, tmp)
-    # calculate scalar product beta*x
+
     x_b = np.array([])
     for k in range(0, B.shape[0]):
         tmp = np.dot(B[k], X_pred)
-        tmp = tmp - B[k, k]*X_pred[k]
+        tmp = tmp - B[k, k] * X_pred[k]
         x_b = np.append(x_b, tmp)
 
     x_hat = -(alphap + r_sum + x_b) / (0.5 * np.diag(B))
-    return (x_hat)
+    return x_hat
 
 
 def pred_discrete(Rho, X_pred, D_pred, alphaq, Phi, levels, p):
+    """Predict probabilities of observing states D_pred given estimated 
+    parameters of MGM and continuous values.
+
+    Args:
+        Rho (numpy.ndarray): Continuous-discrete couplings.
+        X_pred (numpy.ndarray): Vector of continuous values.
+        D_pred (numpy.ndarray): Vector of discrete states for which probabilities should be calculated.
+        alphaq (numpy.ndarray): Continuous node potentials.
+        Phi (numpy.ndarray): Discrete-discrete couplings.
+        levels (list): Levels for discrete states.
+        p (int): Number of continuous features.
+
+    Returns:
+        numpy.ndarray: Predicted probabilities of observing discrete states D_pred.
+    """
     levels = levels.flatten()
     lSum = [0]
     lSum.extend(levels)
@@ -30,6 +60,7 @@ def pred_discrete(Rho, X_pred, D_pred, alphaq, Phi, levels, p):
     q = len(levels)
     q0 = np.sum(levels)
     prob_cat = np.array([])
+
     for j in range(q):
         D_del = np.array(D_pred)
         D_del[lSum[j]:lSum[j + 1]] = 0.
@@ -40,18 +71,48 @@ def pred_discrete(Rho, X_pred, D_pred, alphaq, Phi, levels, p):
         numer = np.exp(t1 + t2 + t3)
         tmp = numer.flatten() / denom
         prob_cat = np.append(prob_cat, tmp)
-    return (prob_cat)
+
+    return prob_cat
 
 
 def calc_mean(X, D):
+    """Calculate the group mean of the continuous data matrix X according to states D.
+
+    Args:
+        - X (numpy.ndarray): continuous Data matrix, features in columns, samples in rows.
+        - D (numpy.ndarray): Discrete states matrix in one-hot-encoding, features in columns, samples in rows.
+
+    Returns:
+        numpy.ndarray: Group mean values.
+    """
     mean = np.zeros(X.shape)
     for i in range(X.shape[0]):
         ind = np.where((D == D[i]).all(axis=1))
         mean[i] = np.mean(X[ind], axis=0)
-    return (mean)
+    return mean
 
 
-def loo_cv_cor(X, D, levels, lam_seq, oIterations=10000, oTol=1e-6, t=0.05):
+def loo_cv_cor(X, D, levels, lambda_seq, oIterations=10000, oTol=1e-6, t=0.05):
+    """
+    Estimate continuous matrix X and discrete states D in a leave-one-out cross-validation approach using Mixed Graphical Models.
+
+    Args:
+        - X (numpy.ndarray): Continuous Data matrix, features in columns, samples in rows.
+        - D (numpy.ndarray): Discrete states matrix in one-hot-encoding, features in columns, samples in rows.
+        - levels (numpy.ndarray): List of levels for discrete states.
+        - lambda_seq: (numpy.ndarray): Sequence of penalty values.
+        - oIterations (int, optional): Number of iterations for fitting MGMs. Defaults to 10000.
+        - oTol (float, optional): Tolerance for fitting MGMs. Defaults to 1e-6.
+        - t (float, optional): Probability threshold value for smoothing corrections. Defaults to 0.05.
+
+    Returns:
+    tuple: Tuple containing the following elements:
+        - prob_cont_old (numpy.ndarray): Estimated continuous probabilities.
+        - Var_old (numpy.ndarray): Variances of the continuous estimates.
+        - lam_opt_old (numpy.ndarray): Optimal Lambda.
+        - X_hat_cor_xp_old (numpy.ndarray): Predicted continuous data matrix X.
+        - D_hat_cor_xp_old (numpy.ndarray): Predicted discrete state matrix D.
+    """
     means = calc_mean(X, D)
     MSE = 2e10
     MSE_old = 2e10
@@ -63,9 +124,9 @@ def loo_cv_cor(X, D, levels, lam_seq, oIterations=10000, oTol=1e-6, t=0.05):
     prob_cont = np.zeros(shape=X.shape)
     Var = np.zeros(shape=X.shape)
     MSE_seq = np.array([])
-    lam_opt = np.array([lam_seq[0]])
-    lam_opt_old = np.array([lam_seq[0]])
-    while ((MSE_old >= MSE) and (j < np.size(lam_seq))):
+    lam_opt = np.array([lambda_seq[0]])
+    lam_opt_old = np.array([lambda_seq[0]])
+    while ((MSE_old >= MSE) and (j < np.size(lambda_seq))):
         lam_opt_old = np.copy(lam_opt)
         MSE_old = np.copy(MSE)
         X_hat_cor_xp_old = np.copy(X_hat_cor_xp)
@@ -73,7 +134,7 @@ def loo_cv_cor(X, D, levels, lam_seq, oIterations=10000, oTol=1e-6, t=0.05):
         D_hat_cor_xp_old = np.copy(D_hat_cor_xp)
         prob_cont_old = np.copy(prob_cont)
         Var_old = np.copy(Var)
-        lambda_t = np.array([lam_seq[j]])
+        lambda_seq_t = np.array([lambda_seq[j]])
         # loop over all samples
         for i in range(X.shape[0]):
             # sample which has to be predicted
@@ -83,8 +144,8 @@ def loo_cv_cor(X, D, levels, lam_seq, oIterations=10000, oTol=1e-6, t=0.05):
             # rest of the samples
             X_red = np.delete(X, i, 0)
             D_red = np.delete(D, i, 0)
-            # learn models for all other samples and current lambda
-            Res = Fit_MGM(X_red, D_red, levels, lambda_t,
+            # learn models for all other samples and current lambda_seq
+            Res = Fit_MGM(X_red, D_red, levels, lambda_seq_t,
                           oIterations, eps=oTol)
             Res = Res[0]
             # predict sample which has been left out
@@ -122,7 +183,6 @@ def loo_cv_cor(X, D, levels, lam_seq, oIterations=10000, oTol=1e-6, t=0.05):
                     tmp[np.where(d_hat[levelSum[d_var-1]:levelSum[d_var]]
                                  == max(d_hat[levelSum[d_var-1]:levelSum[d_var]]))] = 1
                     D_pred_cor[levelSum[d_var-1]:levelSum[d_var]] = tmp
-            # predict cat again using adjusted states
 
             # predict continuous and discrete again using corrected states and values
             x_hat_cor_xp = pred_continuous(B, Rho, alphap, D_pred_cor, x_cor)
@@ -139,12 +199,14 @@ def loo_cv_cor(X, D, levels, lam_seq, oIterations=10000, oTol=1e-6, t=0.05):
             Var[i] = dev
         MSE = np.mean((X_hat - X)**2)
         MSE_seq = np.append(MSE_seq, MSE)
-        lam_opt = lambda_t
+        lam_opt = lambda_seq_t
         j = j+1
 
     if (MSE < MSE_old):
-        print('Minimum not found, choose smaller Lam sequence')
-    if (np.size(lam_seq) == 1): # in case only one lambda submitted
+        print('Minimum located at end of Lambda sequence. Generate new sequence with smaller end point.')
+    if (j == 2):
+        print('Minimum located at start of Lambda sequence. Generate new sequence with bigger start point.')
+    if (np.size(lambda_seq) == 1):  # in case only one lambda_seq submitted
         X_hat_cor_xp_old = np.copy(X_hat_cor_xp)
         D_hat_cor_xp_old = np.copy(D_hat_cor_xp)
         prob_cont_old = np.copy(prob_cont)
@@ -154,98 +216,149 @@ def loo_cv_cor(X, D, levels, lam_seq, oIterations=10000, oTol=1e-6, t=0.05):
 
 
 def get_threshold_continuous(X, X_hat, dev):
-    random.seed(671)
-    # calculate random scores from estimated distribution
-    # first draw random realizations from estimated distribution with 100 repetitions
+    """
+    Calculate the threshold for continuous anomaly detection and correct matric X accordingly.
+
+    Args:
+        - X (numpy.ndarray): Continuous data matrix, features in columns, samples in rows.
+        - X_hat (numpy.ndarray): Predicted continuous data matrix X.
+        - dev (numpy.ndarray): Variances of the continuous estimates.
+
+    Returns:
+        Tuple: Tuple containing the following elements:
+            - X_cor (numpy.ndarray): Data matrix X corrected for anomalies.
+            - threshold (float): Threshold value for anomaly detection.
+            - n_ano (int): Number of detected anomalies.
+            - pos (numpy.ndarray): Indices of detected anomalies in matrix X.
+    """
+    np.random.seed(seed=671)
     mu = X_hat.flatten(order='F')
     dev = dev.flatten(order='F')
     X_flat = X.flatten(order='F')
     random_scores = np.zeros(shape=(mu.shape[0], 100))
+
     for i in range(mu.shape[0]):
         tmp = norm.rvs(loc=mu[i], scale=np.sqrt(1/dev[i]), size=100)
-        random_scores[i, ] = np.divide(np.abs(tmp - mu[i]), np.sqrt(1/dev[i]))
+        random_scores[i, ] = np.divide(
+            np.abs(tmp - mu[i]), np.sqrt(1/dev[i]))
 
-    # rank random scores for each repetition separately
     random_scores = np.sort(random_scores, axis=0)
-    # average over all repetitions
     random_scores = np.flip(np.mean(random_scores, axis=1))
-    # get observed scores
-    observed_scores = np.abs(mu - X_flat)/np.sqrt(1/dev)
+    observed_scores = np.abs(mu - X_flat) / np.sqrt(1/dev)
     observed_scores_sorted = np.flip(np.sort(observed_scores))
-    # determine threshold
     threshold = random_scores[np.where(
         random_scores >= observed_scores_sorted)][0]
-    # and number of detected anomalies
     n_ano = np.sum(observed_scores >= threshold)
-    # correct anomalies found in X with predictions X_hat
     observed_scores = np.reshape(observed_scores, X.shape, 'F')
     X_cor = np.where(observed_scores <= threshold, X, X_hat)
-    ano_index = np.transpose((observed_scores >= threshold).nonzero())
+    pos = np.transpose(
+        (observed_scores >= threshold).nonzero())
 
-    return (X_cor, threshold, n_ano, ano_index)
+    return (X_cor, threshold, n_ano, pos)
 
 
 def get_threshold_discrete(D, levels, D_hat):
-    random.seed(321)
-    # first calculate observed scores
-    # get index of "true" state
+    """
+    Calculate the threshold for discrete anomaly detection and determine the number of discrete anomalies.
+
+    Args:
+        - D (numpy.ndarray): Discrete states matrix in one-hot-encoding, features in columns, samples in rows.
+        - levels (numpy.ndarray): List of levels for discrete states.
+        - D_hat (numpy.ndarray): Predicted discrete state matrix D.
+
+    Returns:
+        Tuple: Tuple containing the following elements:
+            - n_ano (int): Number of detected anomalies.
+            - threshold (float): Threshold value for anomaly detection.
+            - pos (numpy.ndarray): Indices of detected anomalies in matrix X.
+    """
+    np.random.seed(seed=321)
     ind = np.where(D == 1)
     p = D_hat[ind]
     observed_scores = -np.log(p)
     observed_scores_sorted = np.flip(np.sort(observed_scores))
-    # now sample states according to estimated distribution with 100 repetitions
     random_scores = [np.zeros(shape=(D.shape[0], 100))
                      for i in range(len(levels))]
     start = 0
+
     for i in range(len(levels)):
         end = int(start + levels[i])
         prob = D_hat[:, start:end]
 
         state_index = np.arange(levels[i])
         for j in range(D.shape[0]):
-            random_obs = np.random.choice(state_index, p=prob[j], size=100)
+            random_obs = np.random.choice(
+                state_index, p=prob[j], size=100)
             random_scores[i][j] = -np.log(prob[j, random_obs])
         start = end
 
-    # concatenate and average random scores
     random_scores = np.concatenate((random_scores), axis=0)
     random_scores = np.sort(random_scores, axis=0)
     random_scores = np.flip(np.mean(random_scores, axis=1))
-    # determine threshold
     threshold = random_scores[np.where(
         random_scores >= observed_scores_sorted)][0]
-    # and number of detected anomalies
     n_ano = np.sum(observed_scores >= threshold)
-    # get position of detected anomalies
-    # first array corresponds to sample, second array to feature position
     pos = np.array([ind[0][np.where(observed_scores >= threshold)],
                    ind[1][np.where(observed_scores >= threshold)]])
     return (n_ano, threshold, pos)
 
-def transform_data(
-        X
-):
-    X_trans  = (X-X.min(axis = 0))/(X.max(axis=0) - X.min(axis=0))
-    return(X_trans)
 
-def transform_back(
-        X,
-        X_scaled
-):
+def transform_data(X):
+    """
+    Transform data to [0,1] range using Min-max transformation.
+
+    Args:
+        - X (numpy.ndarray): Continuous data matrix, features in columns, samples in rows.
+
+    Returns:
+        numpy.ndarray: Continuous data matrix X transformed to [0,1] range.
+    """
+    X_trans = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
+    return X_trans
+
+
+def transform_back(X, X_scaled):
+    """
+    Transform data back to original scale.
+
+    Args:
+        - X (numpy.ndarray): Original continuous data matrix.
+        - X_scaled (numpy.ndarray): Continuous data matrix X transformed to [0,1] range.
+
+    Returns:
+        numpy.ndarray: Continuous data matrix X retransformed to original scale.
+    """
     X_back = X_scaled * (X.max(axis=0) - X.min(axis=0)) + X.min(axis=0)
-    return(X_back)
+    return X_back
 
-def rel_dev(
-        x, 
-        org):
-    return(abs((x-org)/org))
 
-def place_anomalies_continuous(
-        X,
-        n_ano,
-        epsilon,
-        positive = False
-):
+def rel_dev(x, org):
+    """
+    Calculate relative deviation of x from org.
+
+    Args:
+        - x (float): Value to be compared.
+        - org (float): Original value.
+
+    Returns:
+        float: Relative deviation.
+    """
+    return abs((x - org) / org)
+
+def place_anomalies_continuous(X, n_ano, epsilon, positive=False):
+    """Place anomalies in continuous data matrix X.
+
+    Args:
+        - X (numpy.ndarray): Continuous data matrix, features in columns, samples in rows.
+        - n_ano (int): Number of anomalies to be placed.
+        - epsilon (list): List of anomaly strengths. For each entry one simulation is generated. 
+        - positive (bool, optional): If True, ensures anomalies are positive. Defaults to False.
+
+    Returns:
+        tuple: Tuple containing the following elements:
+            - list: List of matrices with placed anomalies.
+            - numpy.ndarray: Positions of placed anomalies.
+    """
     random.seed(987)
     # first transform data feature-wise to [0,1]
     X_scaled = transform_data(X)
@@ -299,13 +412,23 @@ def place_anomalies_continuous(
                         X_ano[l][row, col] = ano_retrans[l][row,col]
     return(X_ano, position)
 
-def impute(
-        X,
-        D,
-        levels, 
-        lam_seq,
-        oIterations = 10000, 
-        oTol = 1e-6 ):
+def impute(X, D, levels, lambda_seq, oIterations = 10000, oTol = 1e-6 ):
+    """Impute missing values in the data using MGM.
+
+    Args:
+        - X (numpy.ndarray): Continuous Data matrix with missing values (np.nan), features in columns, samples in rows.
+        - D (numpy.ndarray): Discrete states matrix in one-hot-encoding with missing values (np.nan), features in columns, samples in rows.
+        - levels (numpy.ndarray): List of levels for discrete states.
+        - lambda_seq: (numpy.ndarray): Sequence of penalty values.
+        - oIterations (int, optional): Number of iterations for fitting MGMs. Defaults to 10000.
+        - oTol (float, optional): Tolerance for fitting MGMs. Defaults to 1e-6.
+
+    Returns:
+        tuple: Tuple containing the following elements:
+            - numpy.ndarray: Imputed continuous data.
+            - numpy.ndarray: Imputed discrete data.
+            - float: Optimal lambda_seq value used for imputation.
+    """
     # calculate Euclidean distance of all samples to each other
     # ignore NaN values
     dist = nan_euclidean_distances(X,X)
@@ -333,7 +456,7 @@ def impute(
                 sample = np.argmin(dist_new[i]) # use second, third, .. closest sample
             D_preimp[i,j] = D[sample,j]
 
-    # for each lam in lam_seq fit MGM on all data
+    # for each lam in lambda_seq fit MGM on all data
     # calculate MSE
 
     MSE = 2e10
@@ -342,16 +465,16 @@ def impute(
     X_hat = np.zeros(shape=X.shape)
     D_hat = np.zeros(shape=D.shape)
     MSE_seq = np.array([])
-    lam_opt = np.array([lam_seq[0]])
-    lam_opt_old = np.array([lam_seq[0]])
-    while ((MSE_old >= MSE) and (j < np.size(lam_seq))):
+    lam_opt = np.array([lambda_seq[0]])
+    lam_opt_old = np.array([lambda_seq[0]])
+    while ((MSE_old >= MSE) and (j < np.size(lambda_seq))):
         lam_opt_old = np.copy(lam_opt)
         MSE_old = np.copy(MSE)
         X_hat_old = np.copy(X_hat)
         D_hat_old = np.copy(D_hat)
-        lambda_t = np.array([lam_seq[j]])
+        lambda_seq_t = np.array([lambda_seq[j]])
         # fit model on all samples
-        Res = Fit_MGM(X_preimp, D_preimp, levels, lambda_t, oIterations, eps=oTol)
+        Res = Fit_MGM(X_preimp, D_preimp, levels, lambda_seq_t, oIterations, eps=oTol)
         Res = Res[0]
         B = Res[0][0]
         B = B + np.transpose(B)
@@ -383,7 +506,7 @@ def impute(
             D_hat[i] = d_hat_state
         MSE = np.mean((X_hat - X_preimp)**2)
         MSE_seq = np.append(MSE_seq, MSE)
-        lam_opt = lambda_t
+        lam_opt = lambda_seq_t
         j = j+1
     ind_cont = np.where(np.isnan(X))
     ind_disc = np.where(np.isnan(D))
@@ -392,3 +515,5 @@ def impute(
     D_imp = np.copy(D)
     D_imp[ind_disc] = D_hat_old[ind_disc]
     return(X_imp, D_imp, lam_opt_old)
+
+    
