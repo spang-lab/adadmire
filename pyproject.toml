@@ -25,3 +25,9 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/spang-lab/adadmire"
 "Bug Tracker" = "https://github.com/spang-lab/adadmire/issues"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = [
+    "--import-mode=importlib",
+]
