@@ -345,6 +345,7 @@ def rel_dev(x, org):
     """
     return abs((x - org) / org)
 
+
 def place_anomalies_continuous(X, n_ano, epsilon, positive=False):
     """Place anomalies in continuous data matrix X.
 
@@ -370,25 +371,25 @@ def place_anomalies_continuous(X, n_ano, epsilon, positive=False):
     # for each element in X sample shift
     for i in range(X.shape[0]):
         for j in range(X.shape[1]):
-            lc = random.uniform( Z[i,j],(Z[i,j]+X_scaled[i,j]))
-            uc = random.uniform( Z[i,j],(1+Z[i,j]-X_scaled[i,j]))
+            lc = random.uniform(Z[i, j], (Z[i, j]+X_scaled[i, j]))
+            uc = random.uniform(Z[i, j], (1+Z[i, j]-X_scaled[i, j]))
             # decide whether lower or upper change
-            dir = random.randint(0,1)
+            dir = random.randint(0, 1)
             if dir == 1:
                 for k in range(len(epsilon)):
-                    ano[k][i,j] = X_scaled[i,j] + epsilon[k]*uc
-                    change[i,j] = uc
-                    dirm[i,j] = 1
+                    ano[k][i, j] = X_scaled[i, j] + epsilon[k]*uc
+                    change[i, j] = uc
+                    dirm[i, j] = 1
             else:
                 for k in range(len(epsilon)):
-                    ano[k][i,j] = X_scaled[i,j] - epsilon[k] * lc
-                    change[i,j] = lc
-                    dirm[i,j] = 0
+                    ano[k][i, j] = X_scaled[i, j] - epsilon[k] * lc
+                    change[i, j] = lc
+                    dirm[i, j] = 0
     # transform anomalies back
     ano_retrans = [transform_back(X, tmp) for tmp in ano]
     # place anomalies
     position = np.array([])
-    position.shape = (0,2)
+    position.shape = (0, 2)
     X_ano = [np.copy(X) for i in range(len(epsilon))]
     k = 0
     while k < n_ano:
@@ -396,23 +397,24 @@ def place_anomalies_continuous(X, n_ano, epsilon, positive=False):
         row = random.randint(0, (X.shape[0]-1))
         col = random.randint(0, (X.shape[1]-1))
         # first check if anomaly already has been placed at that position
-        if sum((position == [[row,col]]).all(axis = 1)) == 0:
-            # check if introduced anomaly > 15% deviation (only for epsilon < 1 relevant) and anomaly still positiv 
+        if sum((position == [[row, col]]).all(axis=1)) == 0:
+            # check if introduced anomaly > 15% deviation (only for epsilon < 1 relevant) and anomaly still positiv
             if positive == True:
-                if rel_dev(ano_retrans[0][row,col],X[row,col]) > 0.15 and ano_retrans[(len(epsilon)-1)][row,col] > 0:
+                if rel_dev(ano_retrans[0][row, col], X[row, col]) > 0.15 and ano_retrans[(len(epsilon)-1)][row, col] > 0:
                     k = k+1
-                    position = np.append(position, [[row, col]], axis = 0)
+                    position = np.append(position, [[row, col]], axis=0)
                     for l in range(len(epsilon)):
-                        X_ano[l][row, col] = ano_retrans[l][row,col]
-            else :
-                if rel_dev(ano_retrans[0][row,col],X[row,col]) > 0.15:
+                        X_ano[l][row, col] = ano_retrans[l][row, col]
+            else:
+                if rel_dev(ano_retrans[0][row, col], X[row, col]) > 0.15:
                     k = k+1
-                    position = np.append(position, [[row, col]], axis = 0)
+                    position = np.append(position, [[row, col]], axis=0)
                     for l in range(len(epsilon)):
-                        X_ano[l][row, col] = ano_retrans[l][row,col]
-    return(X_ano, position)
+                        X_ano[l][row, col] = ano_retrans[l][row, col]
+    return (X_ano, position)
 
-def impute(X, D, levels, lambda_seq, oIterations = 10000, oTol = 1e-6 ):
+
+def impute(X, D, levels, lambda_seq, oIterations=10000, oTol=1e-6):
     """Impute missing values in the data using MGM.
 
     Args:
@@ -431,7 +433,7 @@ def impute(X, D, levels, lambda_seq, oIterations = 10000, oTol = 1e-6 ):
     """
     # calculate Euclidean distance of all samples to each other
     # ignore NaN values
-    dist = nan_euclidean_distances(X,X)
+    dist = nan_euclidean_distances(X, X)
     np.fill_diagonal(dist, np.inf)
     X_preimp = np.copy(X)
     D_preimp = np.copy(D)
@@ -443,18 +445,20 @@ def impute(X, D, levels, lambda_seq, oIterations = 10000, oTol = 1e-6 ):
         for j in ind_cont:
             sample = np.argmin(dist[i])
             dist_new = np.copy(dist)
-            while np.isnan(X[sample,j]): # check if value for imputation is also nan
-                dist_new[i,sample] = np.inf
-                sample = np.argmin(dist_new[i]) # use second, third, .. closest sample
-            X_preimp[i,j] = X[sample,j]
-        # same for discrete 
+            while np.isnan(X[sample, j]):  # check if value for imputation is also nan
+                dist_new[i, sample] = np.inf
+                # use second, third, .. closest sample
+                sample = np.argmin(dist_new[i])
+            X_preimp[i, j] = X[sample, j]
+        # same for discrete
         for j in ind_disc:
             sample = np.argmin(dist[i])
             dist_new = np.copy(dist)
-            while np.isnan(D[sample,j]): # check if value for imputation is also nan
-                dist_new[i,sample] = np.inf
-                sample = np.argmin(dist_new[i]) # use second, third, .. closest sample
-            D_preimp[i,j] = D[sample,j]
+            while np.isnan(D[sample, j]):  # check if value for imputation is also nan
+                dist_new[i, sample] = np.inf
+                # use second, third, .. closest sample
+                sample = np.argmin(dist_new[i])
+            D_preimp[i, j] = D[sample, j]
 
     # for each lam in lambda_seq fit MGM on all data
     # calculate MSE
@@ -474,7 +478,8 @@ def impute(X, D, levels, lambda_seq, oIterations = 10000, oTol = 1e-6 ):
         D_hat_old = np.copy(D_hat)
         lambda_seq_t = np.array([lambda_seq[j]])
         # fit model on all samples
-        Res = Fit_MGM(X_preimp, D_preimp, levels, lambda_seq_t, oIterations, eps=oTol)
+        Res = Fit_MGM(X_preimp, D_preimp, levels,
+                      lambda_seq_t, oIterations, eps=oTol)
         Res = Res[0]
         B = Res[0][0]
         B = B + np.transpose(B)
@@ -491,7 +496,7 @@ def impute(X, D, levels, lambda_seq, oIterations = 10000, oTol = 1e-6 ):
             # predict sample
             x_hat = pred_continuous(B, Rho, alphap, D_pred, X_pred)
             # get discrete predictions
-            d_hat = pred_discrete(Rho, X_pred, D_pred, alphaq, Phi, levels,p)
+            d_hat = pred_discrete(Rho, X_pred, D_pred, alphaq, Phi, levels, p)
             levelSum = np.cumsum(levels)
             levelSum = np.insert(levelSum, 0, 0)
             d_var = 0
@@ -499,8 +504,10 @@ def impute(X, D, levels, lambda_seq, oIterations = 10000, oTol = 1e-6 ):
             for k in range(len(d_hat)):
                 if k == levelSum[d_var]:
                     d_var = d_var + 1
-                    tmp = np.zeros(shape=len(d_hat[levelSum[d_var-1]:levelSum[d_var]]))
-                    tmp[np.where(d_hat[levelSum[d_var-1]:levelSum[d_var]] == max(d_hat[levelSum[d_var-1]:levelSum[d_var]]))] = 1
+                    tmp = np.zeros(
+                        shape=len(d_hat[levelSum[d_var-1]:levelSum[d_var]]))
+                    tmp[np.where(d_hat[levelSum[d_var-1]:levelSum[d_var]]
+                                 == max(d_hat[levelSum[d_var-1]:levelSum[d_var]]))] = 1
                     d_hat_state[levelSum[d_var-1]:levelSum[d_var]] = tmp
             X_hat[i] = x_hat
             D_hat[i] = d_hat_state
@@ -514,6 +521,72 @@ def impute(X, D, levels, lambda_seq, oIterations = 10000, oTol = 1e-6 ):
     X_imp[ind_cont] = X_hat_old[ind_cont]
     D_imp = np.copy(D)
     D_imp[ind_disc] = D_hat_old[ind_disc]
-    return(X_imp, D_imp, lam_opt_old)
+    return (X_imp, D_imp, lam_opt_old)
 
-    
+
+def penalty(X, D, min, max, step):
+    """Calculate a sequence of penalty parameters for regularization in the form of scaled exponentials.
+
+    Args:
+        - X (numpy.ndarray): Continuous Data matrix, features in columns, samples in rows.
+        - D (numpy.ndarray): Discrete states matrix in one-hot-encoding, features in columns, samples in rows.
+        - min (float): The minimum exponent for the penalty parameter.
+        - max (float): The maximum exponent for the penalty parameter.
+        - step (float): The step size between consecutive exponents.
+
+    Returns:
+        - lambda_seq: (numpy.ndarray): Sequence of penalty values.
+    """
+    lam_zero = np.sqrt(np.log(X.shape[1] + D.shape[1]/2)/X.shape[0])
+    seq = np.flip(np.arange(min, max, step))
+    lambda_seq = [pow(2, x) for x in seq]
+    lambda_seq = np.array(lambda_seq)
+    lambda_seq = lam_zero * lambda_seq
+    return lambda_seq
+
+def admire(X, D, levels, lam, oIterations=10000, oTol=1e-6, t=0.05):
+    """
+    Detect and correct data anomalies in continuous data matrix X and discrete states matrix D.
+
+    Args:
+        - X (numpy.ndarray): Continuous Data matrix, features in columns, samples in rows.
+        - D (numpy.ndarray): Discrete states matrix in one-hot-encoding, features in columns, samples in rows.
+        - levels (numpy.ndarray): List of levels for discrete states.
+        - lam: (numpy.ndarray): Sequence of penalty values.
+        - oIterations (int, optional): Number of iterations for fitting MGMs. Defaults to 10000.
+        - oTol (float, optional): Tolerance for fitting MGMs. Defaults to 1e-6.
+
+    Returns:
+    tuple: Tuple containing the following elements:
+        - X_cor (numpy.ndarray): Continuous data matrix X corrected for anomalies.
+        - n_cont (int): Number of detected continuous anomalies.
+        - position_cont (numpy.ndarray): Positions of detected continuous anomalies in X.
+        - D_cor (numpy.ndarray): Discrete states matrix D corrected for anomalies.
+        - n_disc (int): Number of detected discrete anomalies.
+        - position_disc (numpy.ndarray): Positions of detected discrete anomalies in D.
+    """
+    # perform cross validation
+    prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X,D,levels,lam)
+    # determine continuous threshold
+    X_cor, threshold_cont, n_cont,  position_cont = get_threshold_continuous(X, x_hat, B_m)
+    # determine discrete threshold
+    n_disc, threshold_disc, position_disc = get_threshold_discrete(D, levels, d_hat)
+    # correct D
+    D_cor = np.copy(D)
+    levelSum = np.cumsum(levels)
+    for i in range(n_disc):
+        d_h = d_hat[position_disc[0, i],:]
+        d_old = D[position_disc[0,i],:]
+        d_var = 0
+        for k in range(len(d_h)):
+            if k == levelSum[d_var]:
+                d_var = d_var + 1
+            if d_old[k] == 1 and k == position_disc[1,i]:
+                tmp = np.zeros(
+                    shape=len(d_h[levelSum[d_var-1]:levelSum[d_var]]))
+                tmp[np.where(d_h[levelSum[d_var-1]:levelSum[d_var]] == max(d_h[levelSum[d_var-1]:levelSum[d_var]]))] = 1
+                D_cor[position_disc[0, i],levelSum[d_var-1]:levelSum[d_var]] = tmp
+    return X_cor, n_cont, position_cont, D_cor, n_disc, position_disc
+
+
+
