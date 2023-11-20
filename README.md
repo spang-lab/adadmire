@@ -19,7 +19,7 @@ The usage example in this section require you to download the data files from fo
 ### Example 1
 
 ```python
-from adadmire import loo_cv_cor, get_threshold_continuous, get_threshold_discrete
+from adadmire import admire, penalty
 import numpy as np
 
 # download data/Feist_et_al
@@ -27,28 +27,23 @@ import numpy as np
 X = np.load('data/Feist_et_al/scaled_data_raw.npy') # continuous data
 D = np.load('data/Feist_et_al/pheno.npy') # discrete data
 levels = np.load('data/Feist_et_al/levels.npy') # levels of discrete variables
-# define lambda sequence
-lam_zero = np.sqrt(np.log(X.shape[1] + D.shape[1]/2)/X.shape[0])
-lam_seq = np.array([-1.75,-2.0,-2.25])
-lam = [pow(2, x) for x in lam_seq]
-lam = np.array(lam)
-lam = lam_zero * lam
-# perform cross validation
-prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X,D,levels,lam)
-# determine continuous threshold
-X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X, x_hat, B_m)
-# returns: X corrected for detected anomalies, threshold, number of detected anomalies (n_ano_cont) and position
-print(n_ano_cont) # 46 detected continuous anomalies
-n_ano_disc, threshold_cont, position_disc = get_threshold_discrete(D, levels, d_hat)
-# returns:  number of detected anomalies (n_ano_disc), threshold and position
-print(n_ano_disc)
-# 0 detected discrete anomalies
+# define lambda sequence of penalty values
+lam = penalty(X, D, min= -2.25, max = -1.5, step =0.25)
+print(lam)
+# get anomalies in continuous and discrete data
+X_cor, n_cont, position_cont, D_cor, n_disc, position_disc = admire(X,D,levels, lam)
+# returns corrected X, number of continuous anomalies, position in X
+# corrected D, number of discrete anomalies, position in D
+print(n_cont)
+# 46 detected anomalies
+print(n_disc)
+# 0 detected anomalies
 ```
 
 ### Example 2
 
 ```python
-from adadmire import loo_cv_cor, get_threshold_continuous, place_anomalies_continuous
+from adadmire import admire, place_anomalies_continuous
 import numpy as np
 X = np.load('data/Higuera_et_al/scaled_data_raw.npy') # continuous data
 D = np.load('data/Higuera_et_al/pheno.npy') # discrete data
@@ -59,14 +54,11 @@ X_ano, pos = place_anomalies_continuous( X, n_ano = 1360, epsilon = np.array([0.
 # n_ano: how many anomalies should be introduced?
 # epsilon defines "strength" of introduced anomalies
 
-# now detect anomalies using ADMIRE
-lam_zero = np.sqrt(np.log(X.shape[1] + D.shape[1]/2)/X.shape[0])
-lam_seq = np.array([-1.75,-2.0,-2.25])
-lam = [pow(2, x) for x in lam_seq]
-lam = np.array(lam)
-lam = lam_zero * lam
-prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X_ano[0],D,levels,lam) # perform cv and estimation 
-X_cor, threshold_cont, n_ano_cont,  position_cont = get_threshold_continuous(X_ano, x_hat, B_m) # determine threshold
+# define lambda sequence of penalty values 
+lam = penalty(X, D, min= -2.25, max = -1.5, step =0.25)
+# now detect anomalies in simulation with eps = 1.0 
+X_cor, n_cont, position_cont, D_cor, n_disc, position_disc = admire(X_ano[2],D,levels, lam)
+
 ```
 
 ### Example 3

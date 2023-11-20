@@ -6,5 +6,7 @@ from adadmire.main import (
     pred_continuous,
     pred_discrete,
     place_anomalies_continuous,
-    impute
+    impute,
+    penalty,
+    admire
 )
