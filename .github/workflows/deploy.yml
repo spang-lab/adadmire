@@ -3,11 +3,14 @@ on: {push: {branches: [main, auto-release]}}
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TWINE_USERNAME: __token__
+      TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
     steps:
-      - {name: Checkout repo, uses: actions/checkout@v3}
-      - {name: Setup python, uses: actions/setup-python@v3, with: {python-version: '3.x'}}
-      - {name: Install dependencies, run: "pip install -r requirements.txt"}
-      - {name: Print env, run: "env"}
-      - {name: Create tag, run: "python scripts/create_gh_tag.py"}
-      - {name: Create release, run: "python scripts/create_gh_tag.py"}
-      - {name: Publish to PyPI, run: publish scripts/publish_to_pypi.py}
+      - {name: Checkout repo,         uses: actions/checkout@v3}
+      - {name: Setup python,          uses: actions/setup-python@v3, with: {python-version: '3.x'}}
+      - {name: Print environment,     run: "env"}
+      - {name: Install dependencies,  run: "pip install -r requirements.txt"}
+      - {name: Create Github release, run: "python make.py gh_release"}
+      - {name: Publish to PyPI,       run: "python make.py pypi_release"}
