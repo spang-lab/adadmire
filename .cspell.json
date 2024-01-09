@@ -1,0 +1,21 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "Bioinformatics",
+        "codecov",
+        "freezegun",
+        "Higuera",
+        "isnan",
+        "Maren",
+        "pheno",
+        "PLOS",
+        "pypa",
+        "pypi",
+        "runslow"
+    ],
+    "ignoreWords": [],
+    "import": []
+}

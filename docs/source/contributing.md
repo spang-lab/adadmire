@@ -1,4 +1,4 @@
-# Contribute
+# Contributing
 
 In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://github.com/spang-lab/adadmire/issues).
 
@@ -11,7 +11,7 @@ In case you want to **write code** for this package, please also create an [Issu
 1. **Make your code changes**
 2. **Increase the version** in [pyproject.toml](../pyproject.toml)
 3. **Build the package**:
-   * Run command `python -m pip install --upgrade build twine` to install modules [build](https://pypi.org/project/build/) and [twine](https://pypi.org/project/twine/) (required for building and uploading of packages) 
+   * Run command `python -m pip install --upgrade build twine` to install modules [build](https://pypi.org/project/build/) and [twine](https://pypi.org/project/twine/) (required for building and uploading of packages)
    * Run command `python -m build` to generate pre-built version of your package (`dist/adadmire*.whl`) as well as a source version of your package (`dist/adadmire*.tar.gz`)
 4. **Upload to PyPI Test Server**: this step is optional and only required if you want to try out the upload and following installation.
    * Run command `python -m twine upload --repository testpypi dist/*` to upload your package to [test.pypi.org](https://test.pypi.org/). **Important**: for this to work, you need to create an account at [test.pypi.org](https://test.pypi.org/) first! Please also note, that you need two separate accounts for [test.pypi.org](https://test.pypi.org/) and [pypi.org](https://pypi.org/).

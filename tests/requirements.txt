@@ -1,0 +1,7 @@
+build
+requests
+packaging
+pytest
+pytest-cov
+freezegun
+PyYAML

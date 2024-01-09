@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>adadmire package &mdash; adadmire 1.0.7 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=46dfa7f5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            adadmire
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#tips-and-tricks">Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">adadmire</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">adadmire package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/adadmire.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-adadmire">
+<span id="adadmire-package"></span><h1>adadmire package<a class="headerlink" href="#module-adadmire" title="Link to this heading"></a></h1>
+<p>adadmire: Anomaly detection in mixed high-dimensional molecular data.</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-adadmire.apgpy">
+<span id="adadmire-apgpy-module"></span><h2>adadmire.apgpy module<a class="headerlink" href="#module-adadmire.apgpy" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="adadmire.apgpy.IWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IWrapper</span></span><a class="headerlink" href="#adadmire.apgpy.IWrapper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="adadmire.apgpy.IWrapper.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.IWrapper.copy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="adadmire.apgpy.IWrapper.data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#adadmire.apgpy.IWrapper.data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="adadmire.apgpy.IWrapper.dot">
+<span class="sig-name descname"><span class="pre">dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.IWrapper.dot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="adadmire.apgpy.IWrapper.norm">
+<span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.IWrapper.norm" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="adadmire.apgpy.NumpyWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NumpyWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nparray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.NumpyWrapper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#adadmire.apgpy.IWrapper" title="adadmire.apgpy.IWrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">IWrapper</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="adadmire.apgpy.NumpyWrapper.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.NumpyWrapper.copy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="adadmire.apgpy.NumpyWrapper.data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#adadmire.apgpy.NumpyWrapper.data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="adadmire.apgpy.NumpyWrapper.dot">
+<span class="sig-name descname"><span class="pre">dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.NumpyWrapper.dot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="adadmire.apgpy.NumpyWrapper.norm">
+<span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.NumpyWrapper.norm" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.apgpy.npwrap">
+<span class="sig-name descname"><span class="pre">npwrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.npwrap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.apgpy.npwrapfunc">
+<span class="sig-name descname"><span class="pre">npwrapfunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.npwrapfunc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.apgpy.solve">
+<span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grad_f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prox_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_restart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gen_plots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.apgpy.solve" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-adadmire.main">
+<span id="adadmire-main-module"></span><h2>adadmire.main module<a class="headerlink" href="#module-adadmire.main" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.admire">
+<span class="sig-name descname"><span class="pre">admire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oIterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oTol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.admire" title="Link to this definition"></a></dt>
+<dd><p>Detect and correct data anomalies in continuous data matrix X and discrete states matrix D.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>) – Continuous Data matrix, features in columns, samples in rows.</p></li>
+<li><p><strong>D</strong> (<em>-</em>) – Discrete states matrix in one-hot-encoding, features in columns, samples in rows.</p></li>
+<li><p><strong>levels</strong> (<em>-</em>) – List of levels for discrete states.</p></li>
+<li><p><strong>lam</strong> (<em>-</em>) – (numpy.ndarray): Sequence of penalty values.</p></li>
+<li><p><strong>oIterations</strong> (<em>-</em>) – Number of iterations for fitting MGMs. Defaults to 10000.</p></li>
+<li><p><strong>oTol</strong> (<em>-</em>) – Tolerance for fitting MGMs. Defaults to 1e-6.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:
+tuple: Tuple containing the following elements:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>X_cor (numpy.ndarray): Continuous data matrix X corrected for anomalies.</p></li>
+<li><p>n_cont (int): Number of detected continuous anomalies.</p></li>
+<li><p>position_cont (numpy.ndarray): Positions of detected continuous anomalies in X.</p></li>
+<li><p>D_cor (numpy.ndarray): Discrete states matrix D corrected for anomalies.</p></li>
+<li><p>n_disc (int): Number of detected discrete anomalies.</p></li>
+<li><p>position_disc (numpy.ndarray): Positions of detected discrete anomalies in D.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.calc_mean">
+<span class="sig-name descname"><span class="pre">calc_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.calc_mean" title="Link to this definition"></a></dt>
+<dd><p>Calculate the group mean of the continuous data matrix X according to states D.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>) – continuous Data matrix, features in columns, samples in rows.</p></li>
+<li><p><strong>D</strong> (<em>-</em>) – Discrete states matrix in one-hot-encoding, features in columns, samples in rows.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Group mean values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.get_threshold_continuous">
+<span class="sig-name descname"><span class="pre">get_threshold_continuous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_hat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.get_threshold_continuous" title="Link to this definition"></a></dt>
+<dd><p>Calculate the threshold for continuous anomaly detection and correct matric X accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>) – Continuous data matrix, features in columns, samples in rows.</p></li>
+<li><p><strong>X_hat</strong> (<em>-</em>) – Predicted continuous data matrix X.</p></li>
+<li><p><strong>dev</strong> (<em>-</em>) – Variances of the continuous estimates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple containing the following elements:</dt><dd><ul class="simple">
+<li><p>X_cor (numpy.ndarray): Data matrix X corrected for anomalies.</p></li>
+<li><p>threshold (float): Threshold value for anomaly detection.</p></li>
+<li><p>n_ano (int): Number of detected anomalies.</p></li>
+<li><p>pos (numpy.ndarray): Indices of detected anomalies in matrix X.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.get_threshold_discrete">
+<span class="sig-name descname"><span class="pre">get_threshold_discrete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D_hat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.get_threshold_discrete" title="Link to this definition"></a></dt>
+<dd><p>Calculate the threshold for discrete anomaly detection and determine the number of discrete anomalies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>D</strong> (<em>-</em>) – Discrete states matrix in one-hot-encoding, features in columns, samples in rows.</p></li>
+<li><p><strong>levels</strong> (<em>-</em>) – List of levels for discrete states.</p></li>
+<li><p><strong>D_hat</strong> (<em>-</em>) – Predicted discrete state matrix D.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple containing the following elements:</dt><dd><ul class="simple">
+<li><p>n_ano (int): Number of detected anomalies.</p></li>
+<li><p>threshold (float): Threshold value for anomaly detection.</p></li>
+<li><p>pos (numpy.ndarray): Indices of detected anomalies in matrix X.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.impute">
+<span class="sig-name descname"><span class="pre">impute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oIterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oTol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.impute" title="Link to this definition"></a></dt>
+<dd><p>Impute missing values in the data using MGM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>) – Continuous Data matrix with missing values (np.nan), features in columns, samples in rows.</p></li>
+<li><p><strong>D</strong> (<em>-</em>) – Discrete states matrix in one-hot-encoding with missing values (np.nan), features in columns, samples in rows.</p></li>
+<li><p><strong>levels</strong> (<em>-</em>) – List of levels for discrete states.</p></li>
+<li><p><strong>lambda_seq</strong> (<em>-</em>) – (numpy.ndarray): Sequence of penalty values.</p></li>
+<li><p><strong>oIterations</strong> (<em>-</em>) – Number of iterations for fitting MGMs. Defaults to 10000.</p></li>
+<li><p><strong>oTol</strong> (<em>-</em>) – Tolerance for fitting MGMs. Defaults to 1e-6.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple containing the following elements:</dt><dd><ul class="simple">
+<li><p>numpy.ndarray: Imputed continuous data.</p></li>
+<li><p>numpy.ndarray: Imputed discrete data.</p></li>
+<li><p>float: Optimal lambda_seq value used for imputation.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.loo_cv_cor">
+<span class="sig-name descname"><span class="pre">loo_cv_cor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oIterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oTol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.loo_cv_cor" title="Link to this definition"></a></dt>
+<dd><p>Estimate continuous matrix X and discrete states D in a leave-one-out cross-validation approach using Mixed Graphical Models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>) – Continuous Data matrix, features in columns, samples in rows.</p></li>
+<li><p><strong>D</strong> (<em>-</em>) – Discrete states matrix in one-hot-encoding, features in columns, samples in rows.</p></li>
+<li><p><strong>levels</strong> (<em>-</em>) – List of levels for discrete states.</p></li>
+<li><p><strong>lambda_seq</strong> (<em>-</em>) – (numpy.ndarray): Sequence of penalty values.</p></li>
+<li><p><strong>oIterations</strong> (<em>-</em>) – Number of iterations for fitting MGMs. Defaults to 10000.</p></li>
+<li><p><strong>oTol</strong> (<em>-</em>) – Tolerance for fitting MGMs. Defaults to 1e-6.</p></li>
+<li><p><strong>t</strong> (<em>-</em>) – Probability threshold value for smoothing corrections. Defaults to 0.05.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:
+tuple: Tuple containing the following elements:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>prob_cont_old (numpy.ndarray): Estimated continuous probabilities.</p></li>
+<li><p>Var_old (numpy.ndarray): Variances of the continuous estimates.</p></li>
+<li><p>lam_opt_old (numpy.ndarray): Optimal Lambda.</p></li>
+<li><p>X_hat_cor_xp_old (numpy.ndarray): Predicted continuous data matrix X.</p></li>
+<li><p>D_hat_cor_xp_old (numpy.ndarray): Predicted discrete state matrix D.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.penalty">
+<span class="sig-name descname"><span class="pre">penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.penalty" title="Link to this definition"></a></dt>
+<dd><p>Calculate a sequence of penalty parameters for regularization in the form of scaled exponentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>) – Continuous Data matrix, features in columns, samples in rows.</p></li>
+<li><p><strong>D</strong> (<em>-</em>) – Discrete states matrix in one-hot-encoding, features in columns, samples in rows.</p></li>
+<li><p><strong>min</strong> (<em>-</em>) – The minimum exponent for the penalty parameter.</p></li>
+<li><p><strong>max</strong> (<em>-</em>) – The maximum exponent for the penalty parameter.</p></li>
+<li><p><strong>step</strong> (<em>-</em>) – The step size between consecutive exponents.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(numpy.ndarray): Sequence of penalty values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>lambda_seq</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.place_anomalies_continuous">
+<span class="sig-name descname"><span class="pre">place_anomalies_continuous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ano</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.place_anomalies_continuous" title="Link to this definition"></a></dt>
+<dd><p>Place anomalies in continuous data matrix X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>) – Continuous data matrix, features in columns, samples in rows.</p></li>
+<li><p><strong>n_ano</strong> (<em>-</em>) – Number of anomalies to be placed.</p></li>
+<li><p><strong>epsilon</strong> (<em>-</em>) – List of anomaly strengths. For each entry one simulation is generated.</p></li>
+<li><p><strong>positive</strong> (<em>-</em>) – If True, ensures anomalies are positive. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple containing the following elements:</dt><dd><ul class="simple">
+<li><p>list: List of matrices with placed anomalies.</p></li>
+<li><p>numpy.ndarray: Positions of placed anomalies.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.pred_continuous">
+<span class="sig-name descname"><span class="pre">pred_continuous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_pred</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.pred_continuous" title="Link to this definition"></a></dt>
+<dd><p>Predict continuous values given estimated
+parameters of MGM and discrete values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>B</strong> (<em>-</em>) – Matrix B.</p></li>
+<li><p><strong>Rho</strong> (<em>-</em>) – Continuous-discrete couplings.</p></li>
+<li><p><strong>alphap</strong> (<em>-</em>) – Continuous node potentials.</p></li>
+<li><p><strong>D_pred</strong> (<em>-</em>) – Vector of discrete states.</p></li>
+<li><p><strong>X_pred</strong> (<em>-</em>) – Vector of continuous values that should be estimated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted continuous values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.pred_discrete">
+<span class="sig-name descname"><span class="pre">pred_discrete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.pred_discrete" title="Link to this definition"></a></dt>
+<dd><p>Predict probabilities of observing states D_pred given estimated
+parameters of MGM and continuous values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Rho</strong> (<em>numpy.ndarray</em>) – Continuous-discrete couplings.</p></li>
+<li><p><strong>X_pred</strong> (<em>numpy.ndarray</em>) – Vector of continuous values.</p></li>
+<li><p><strong>D_pred</strong> (<em>numpy.ndarray</em>) – Vector of discrete states for which probabilities should be calculated.</p></li>
+<li><p><strong>alphaq</strong> (<em>numpy.ndarray</em>) – Continuous node potentials.</p></li>
+<li><p><strong>Phi</strong> (<em>numpy.ndarray</em>) – Discrete-discrete couplings.</p></li>
+<li><p><strong>levels</strong> (<em>list</em>) – Levels for discrete states.</p></li>
+<li><p><strong>p</strong> (<em>int</em>) – Number of continuous features.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted probabilities of observing discrete states D_pred.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.rel_dev">
+<span class="sig-name descname"><span class="pre">rel_dev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">org</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.rel_dev" title="Link to this definition"></a></dt>
+<dd><p>Calculate relative deviation of x from org.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>-</em>) – Value to be compared.</p></li>
+<li><p><strong>org</strong> (<em>-</em>) – Original value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Relative deviation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.transform_back">
+<span class="sig-name descname"><span class="pre">transform_back</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_scaled</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.transform_back" title="Link to this definition"></a></dt>
+<dd><p>Transform data back to original scale.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>-</em>) – Original continuous data matrix.</p></li>
+<li><p><strong>X_scaled</strong> (<em>-</em>) – Continuous data matrix X transformed to [0,1] range.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Continuous data matrix X retransformed to original scale.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.main.transform_data">
+<span class="sig-name descname"><span class="pre">transform_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.main.transform_data" title="Link to this definition"></a></dt>
+<dd><p>Transform data to [0,1] range using Min-max transformation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>-</em>) – Continuous data matrix, features in columns, samples in rows.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Continuous data matrix X transformed to [0,1] range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-adadmire.mgm">
+<span id="adadmire-mgm-module"></span><h2>adadmire.mgm module<a class="headerlink" href="#module-adadmire.mgm" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.B_Rho_Phi_alphap_alphaq">
+<span class="sig-name descname"><span class="pre">B_Rho_Phi_alphap_alphaq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaq</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.B_Rho_Phi_alphap_alphaq" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.Fit_MGM">
+<span class="sig-name descname"><span class="pre">Fit_MGM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.Fit_MGM" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.Inv_B_Rho_Phi_alphap_alphaq">
+<span class="sig-name descname"><span class="pre">Inv_B_Rho_Phi_alphap_alphaq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.Inv_B_Rho_Phi_alphap_alphaq" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.grad_f_temp">
+<span class="sig-name descname"><span class="pre">grad_f_temp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.grad_f_temp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.grad_neglogli">
+<span class="sig-name descname"><span class="pre">grad_neglogli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.grad_neglogli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.grad_neglogli_plain">
+<span class="sig-name descname"><span class="pre">grad_neglogli_plain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B_Rho_Phi_alphap_alphaq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.grad_neglogli_plain" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.make_penalty_factors">
+<span class="sig-name descname"><span class="pre">make_penalty_factors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.make_penalty_factors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.make_starting_parameters">
+<span class="sig-name descname"><span class="pre">make_starting_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.make_starting_parameters" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.neglogli">
+<span class="sig-name descname"><span class="pre">neglogli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.neglogli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.neglogli_plain">
+<span class="sig-name descname"><span class="pre">neglogli_plain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B_Rho_Phi_alphap_alphaq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.neglogli_plain" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="adadmire.mgm.prox_enet">
+<span class="sig-name descname"><span class="pre">prox_enet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_l1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_l2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adadmire.mgm.prox_enet" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lena Buck, Tobias Schmidt.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
