@@ -1,0 +1,11 @@
+# Development Dependencies
+build
+freezegun
+packaging
+PyGithub
+pytest
+pytest-cov
+PyYAML
+requests
+scikit-learn
+scipy
