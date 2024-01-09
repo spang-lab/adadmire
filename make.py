@@ -1,8 +1,17 @@
+import git
+import toml
+import github
+import argparse
+import sys
+import os
+import subprocess
+
 prog = "make.py"
 usage = "python make.py (gh_release|pypi_release) [--force|--dry-run] [--help]"
 description = "Adadmire Make Script"
 epilog = f"For further details see {__file__}"
-details = """When called with argument `gh_release`, this script creates a tag and release in adadmire's GitHub repository with the version taken from `pyproject.toml` if the following conditions are fulfilled:
+details = """
+When called with argument `gh_release`, this script creates a tag and release in adadmire's GitHub repository with the version taken from `pyproject.toml` if the following conditions are fulfilled:
 
 1. The local git client is able to authenticate with the GitHub API. This can be achieved by setting up SSH keys or by configuring environment variable `GITHUB_TOKEN`.
 2. Tag `vX.Y.Z` does not exist yet where `X.Y.Z` is the version taken from `pyproject.toml`.
@@ -13,26 +22,20 @@ When called with argument `pypi_release`, this script creates a release on PyPI 
 
 1. The local twine installation is able to authenticate with the PyPI API. This can be achieved by setting up a local `.pypirc` file or by configuring environment variables `TWINE_USERNAME` and `TWINE_PASSWORD`.
 1. Builds the package by running `python -m build`. This creates a dist directory containing the built package.
-2. Publishes the package to PyPI by running `twine upload dist/*`. This uploads all files in the dist directory to PyPI."""
-
-import subprocess
-import os
-import sys
-import argparse
-
-import github
-import toml
-import git
+2. Publishes the package to PyPI by running `twine upload dist/*`. This uploads all files in the dist directory to PyPI.
+"""
 
 # Constants
 blue = "\033[94m"
 norm = "\033[0m"
-title = lambda text: print(f"{blue}{text}{norm}")
+def title(text): return print(f"{blue}{text}{norm}")
+
 
 # Parse commandline arguments
 parser = argparse.ArgumentParser(prog, usage, description, epilog, formatter_class=argparse.RawTextHelpFormatter, )
 parser.add_argument('target', choices=['gh_release', 'pypi_release'], help='Target to make', )
-parser.add_argument('--force', action='store_true', help='Force making of target even when run outside a github action?')
+parser.add_argument('--force', action='store_true',
+                    help='Force making of target even when run outside a github action?')
 parser.add_argument('--dry-run', action='store_true', help='Skip making of target even when conditions are fulfilled?')
 args = parser.parse_args()
 target = args.target
@@ -92,7 +95,8 @@ if target == "gh_release":
         print(f"Skipping creation of tag {tag} because dry_run is True")
     else:
         print(f"Creating tag {tag} and pushing to GitHub.")
-        gh_repo.create_git_tag_and_release(tag=tag, tag_message=tag, release_name=tag, release_message=tag, object=commit_hash, type="commit")
+        gh_repo.create_git_tag_and_release(tag=tag, tag_message=tag, release_name=tag,
+                                           release_message=tag, object=commit_hash, type="commit")
 elif target == "pypi_release":
     if (tag not in tags):
         print(f"Tag {tag} doesn't exist on Github. Run `python make gh_release` first.")
