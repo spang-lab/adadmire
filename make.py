@@ -78,37 +78,32 @@ print(f"Latest commit hash on main branch: {latest_commit_hash_main}")
 # Collect info about Github Action triggering this script
 GITHUB_REF = os.getenv("GITHUB_REF")
 GITHUB_EVENT_NAME = os.getenv("GITHUB_EVENT_NAME")
+triggered_by_push_to_main = GITHUB_REF == "refs/heads/main" and GITHUB_EVENT_NAME == "push"
 title(f"\nGithub Action Details:")
 print(f"Triggered by Github Event: {GITHUB_EVENT_NAME}")
 print(f"Triggered by Github Ref: {GITHUB_REF}")
+print(f"Triggered by push to main branch: {triggered_by_push_to_main}")
 
 # Actually make target
 title(f"\nMaking Target: {target}")
+
 if target == "gh_release":
-    if (tag in tags):
-        print(f"Tag {tag} already exists. Skipping creation.")
-    elif commit_hash != latest_commit_hash_main:
-        print(f"Current commit_hash does not match latest commit hash on main branch. Skipping creation of tag {tag}.")
-    elif (GITHUB_REF != "refs/heads/main" or GITHUB_EVENT_NAME != "push") and args.force != True:
-        print("This script should be run by a GitHub Action triggered by a push to the main branch.")
-    elif dry_run:
+    assert tag not in tags, f"Tag {tag} already exists. Skipping creation."
+    assert commit_hash == latest_commit_hash_main, f"Current commit_hash does not match latest commit hash on main branch. Skipping creation of tag {tag}."
+    assert triggered_by_push_to_main or force == True, "This script should be run by a GitHub Action triggered by a push to the main branch."
+    if dry_run:
         print(f"Skipping creation of tag {tag} because dry_run is True")
     else:
         print(f"Creating tag {tag} and pushing to GitHub.")
-        gh_repo.create_git_tag_and_release(tag=tag, tag_message=tag, release_name=tag,
-                                           release_message=tag, object=commit_hash, type="commit")
-elif target == "pypi_release":
-    if (tag not in tags):
-        print(f"Tag {tag} doesn't exist on Github. Run `python make gh_release` first.")
-    elif (commit_hash != latest_commit_hash_main) and args.force != True:
-        print(f"Current commit_hash does not match latest commit hash on main branch. Skipping creation of PyPI release.")
-    elif (GITHUB_REF != "refs/heads/main" or GITHUB_EVENT_NAME != "push") and args.force != True:
-        print("This script should be run by a GitHub Action triggered by a push to the main branch. Skipping creation of PyPI release.")
-    elif dry_run:
+        gh_repo.create_git_tag_and_release(tag=tag, tag_message=tag, release_name=tag, release_message=tag, object=commit_hash, type="commit")
+
+if target == "pypi_release":
+    assert tag not in tags, f"Tag {tag} doesn't exist on Github. Run `python make gh_release` first."
+    assert commit_hash == latest_commit_hash_main or force == True, f"Current commit_hash {commit_hash} does not match latest commit hash on main branch {latest_commit_hash_main}. Skipping creation of PyPI release."
+    assert triggered_by_push_to_main or force == True, f"This script should be run by a GitHub Action triggered by a push to the main branch. Skipping creation of PyPI release.")
+    if dry_run:
         print(f"Skipping creation of PyPI release because dry_run is True")
     else:
         print(f"Building and publishing package to PyPI.")
         subprocess.run([sys.executable, "-m", "build"])
         subprocess.run(["twine", "upload", "dist/*"])
-else:
-    print(f"Unknown target {target}.")
