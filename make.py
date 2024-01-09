@@ -1,21 +1,19 @@
-"""
-Usage: python make.py (gh_release|pypi_release) [--force|--dry-run] [--help]
-
-When called with argument `gh_release`, this script creates a tag and release in adadmire's GitHub repository with the version taken from pyproject.toml if the following conditions are fulfilled:
+prog = "make.py"
+usage = "python make.py (gh_release|pypi_release) [--force|--dry-run] [--help]"
+description = "Adadmire Make Script"
+epilog = f"For further details see {__file__}"
+details = """When called with argument `gh_release`, this script creates a tag and release in adadmire's GitHub repository with the version taken from `pyproject.toml` if the following conditions are fulfilled:
 
 1. The local git client is able to authenticate with the GitHub API. This can be achieved by setting up SSH keys or by configuring environment variable `GITHUB_TOKEN`.
-2. The tag does not already exist.
+2. Tag `vX.Y.Z` does not exist yet where `X.Y.Z` is the version taken from `pyproject.toml`.
 3. The current commit hash matches the latest commit hash on the main branch.
 4. The script is run by a GitHub Action triggered by a push to the main branch.
 
-The created tag/release will have the format `vX.Y.Z`, i.e. if the version in pyproject.toml is 1.2.3, the tag and release will be named v1.2.3.
-
-When called with argument `pypi_release`, this script creates a release on PyPI with the version taken from pyproject.toml if the following conditions are fulfilled:
+When called with argument `pypi_release`, this script creates a release on PyPI with the version taken from `pyproject.toml` if the following conditions are fulfilled:
 
 1. The local twine installation is able to authenticate with the PyPI API. This can be achieved by setting up a local `.pypirc` file or by configuring environment variables `TWINE_USERNAME` and `TWINE_PASSWORD`.
 1. Builds the package by running `python -m build`. This creates a dist directory containing the built package.
-2. Publishes the package to PyPI by running `twine upload dist/*`. This uploads all files in the dist directory to PyPI.
-"""
+2. Publishes the package to PyPI by running `twine upload dist/*`. This uploads all files in the dist directory to PyPI."""
 
 import subprocess
 import os
@@ -32,8 +30,8 @@ norm = "\033[0m"
 title = lambda text: print(f"{blue}{text}{norm}")
 
 # Parse commandline arguments
-parser = argparse.ArgumentParser(description='Adadmire Make Script')
-parser.add_argument('target', choices=['gh_release', 'pypi_release'], help='Target to make')
+parser = argparse.ArgumentParser(prog, usage, description, epilog, formatter_class=argparse.RawTextHelpFormatter, )
+parser.add_argument('target', choices=['gh_release', 'pypi_release'], help='Target to make', )
 parser.add_argument('--force', action='store_true', help='Force making of target even when run outside a github action?')
 parser.add_argument('--dry-run', action='store_true', help='Skip making of target even when conditions are fulfilled?')
 args = parser.parse_args()
