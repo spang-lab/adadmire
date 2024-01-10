@@ -100,7 +100,7 @@ if target == "gh_release":
 if target == "pypi_release":
     assert tag not in tags, f"Tag {tag} doesn't exist on Github. Run `python make gh_release` first."
     assert commit_hash == latest_commit_hash_main or force == True, f"Current commit_hash {commit_hash} does not match latest commit hash on main branch {latest_commit_hash_main}. Skipping creation of PyPI release."
-    assert triggered_by_push_to_main or force == True, f"This script should be run by a GitHub Action triggered by a push to the main branch. Skipping creation of PyPI release.")
+    assert triggered_by_push_to_main or force == True, f"This script should be run by a GitHub Action triggered by a push to the main branch. Skipping creation of PyPI release."
     if dry_run:
         print(f"Skipping creation of PyPI release because dry_run is True")
     else:

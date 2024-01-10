@@ -12,5 +12,5 @@ jobs:
       - {name: Setup python,          uses: actions/setup-python@v3, with: {python-version: '3.x'}}
       - {name: Print environment,     run: "env"}
       - {name: Install dependencies,  run: "pip install -r make_requirements.txt"}
-      - {name: Create Github release, run: "python make.py gh_release"}
-      - {name: Publish to PyPI,       run: "python make.py pypi_release"}
+      - {name: Create Github release, run: "python make.py gh_release --force --dry-run"}
+      - {name: Publish to PyPI,       run: "python make.py pypi_release --force --dry-run"}
