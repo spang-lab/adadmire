@@ -88,9 +88,10 @@ print(f"Triggered by push to main branch: {triggered_by_push_to_main}")
 title(f"\nMaking Target: {target}")
 
 if target == "gh_release":
-    assert tag not in tags, f"Tag {tag} already exists. Skipping creation."
-    assert commit_hash == latest_commit_hash_main, f"Current commit_hash does not match latest commit hash on main branch. Skipping creation of tag {tag}."
-    assert triggered_by_push_to_main or force == True, "This script should be run by a GitHub Action triggered by a push to the main branch."
+    if not force:
+        assert tag not in tags, f"Tag {tag} already exists. Skipping creation."
+        assert commit_hash == latest_commit_hash_main, f"Current commit_hash does not match latest commit hash on main branch. Skipping creation of tag {tag}."
+        assert triggered_by_push_to_main, "This script should be run by a GitHub Action triggered by a push to the main branch."
     if dry_run:
         print(f"Skipping creation of tag {tag} because dry_run is True")
     else:
@@ -98,9 +99,10 @@ if target == "gh_release":
         gh_repo.create_git_tag_and_release(tag=tag, tag_message=tag, release_name=tag, release_message=tag, object=commit_hash, type="commit")
 
 if target == "pypi_release":
-    assert tag not in tags, f"Tag {tag} doesn't exist on Github. Run `python make gh_release` first."
-    assert commit_hash == latest_commit_hash_main or force == True, f"Current commit_hash {commit_hash} does not match latest commit hash on main branch {latest_commit_hash_main}. Skipping creation of PyPI release."
-    assert triggered_by_push_to_main or force == True, f"This script should be run by a GitHub Action triggered by a push to the main branch. Skipping creation of PyPI release."
+    if not force:
+        assert tag not in tags, f"Tag {tag} doesn't exist on Github. Run `python make gh_release` first."
+        assert commit_hash == latest_commit_hash_main, f"Current commit_hash {commit_hash} does not match latest commit hash on main branch {latest_commit_hash_main}. Skipping creation of PyPI release."
+        assert triggered_by_push_to_main, f"This script should be run by a GitHub Action triggered by a push to the main branch. Skipping creation of PyPI release."
     if dry_run:
         print(f"Skipping creation of PyPI release because dry_run is True")
     else:
