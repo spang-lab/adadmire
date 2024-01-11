@@ -1,9 +1,11 @@
+import os
 import adadmire
 import numpy
 import pathlib
 import pytest
 
 
+cwd = os.getcwd()
 repo_dir = pathlib.Path(__file__).parent.parent
 
 
@@ -41,16 +43,26 @@ def example3():
 
 @pytest.mark.slow
 def test_example1():
-    with repo_dir.as_cwd():
+    os.chdir(repo_dir)
+    try:
         example1()
+    finally:
+        os.chdir(cwd)
+
 
 @pytest.mark.slow
 def test_example2():
-    with repo_dir.as_cwd():
+    os.chdir(repo_dir)
+    try:
         example2()
+    finally:
+        os.chdir(cwd)
 
 
 @pytest.mark.slow
 def test_example3():
-    with repo_dir.as_cwd():
+    os.chdir(repo_dir)
+    try:
         example3()
+    finally:
+        os.chdir(cwd)

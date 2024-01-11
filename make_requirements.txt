@@ -1,5 +1,6 @@
 build
 freezegun
+ghp-import
 GitPython
 packaging
 PyGithub
@@ -10,3 +11,4 @@ requests
 scikit-learn
 scipy
 toml
+twine

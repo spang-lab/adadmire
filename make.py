@@ -88,12 +88,14 @@ def make_gh_release(args):
 
     if (all(tests_passed) or args.force) and (not args.dry_run):
         h1(f"Creating tag {tag} and release {tag} on GitHub")
-        github_repo.create_git_tag_and_release(tag=pyproject.tag,
-                                               tag_message=pyproject.tag,
-                                               release_name=pyproject.tag,
-                                               release_message=pyproject.tag,
-                                               object=local_repo.commit_hash,
-                                               type="commit")
+        github_repo.repo.create_git_tag_and_release(
+            tag=pyproject.tag,
+            tag_message=pyproject.tag,
+            release_name=pyproject.tag,
+            release_message=pyproject.tag,
+            object=local_repo.commit_hash,
+            type="commit"
+        )
     sys.exit(0 if all(tests_passed) or args.dry_run else 1)
 
 
