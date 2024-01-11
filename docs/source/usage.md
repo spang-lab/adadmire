@@ -8,7 +8,7 @@ The usage example in this section requires you to download the data files from f
 from adadmire import admire, penalty
 import numpy as np
 
-# Download Feist et al example data from Github and load it into python
+# Load Feist et al example data into python
 X = np.load('data/Feist_et_al/scaled_data_raw.npy') # continuous data
 D = np.load('data/Feist_et_al/pheno.npy') # discrete data
 levels = np.load('data/Feist_et_al/levels.npy') # levels of discrete variables

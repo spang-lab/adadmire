@@ -1,16 +1,34 @@
 name: Deploy
 on: {push: {branches: [main, auto-release]}}
 jobs:
-  deploy:
+  github:
+    name: GitHub Release
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      TWINE_USERNAME: __token__
-      TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+    env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
     steps:
-      - {name: Checkout repo,         uses: actions/checkout@v3}
-      - {name: Setup python,          uses: actions/setup-python@v3, with: {python-version: '3.x'}}
-      - {name: Print environment,     run: "env"}
-      - {name: Install dependencies,  run: "pip install -r make_requirements.txt"}
-      - {name: Create Github release, run: "python make.py gh_release --force --dry-run"}
-      - {name: Publish to PyPI,       run: "python make.py pypi_release --force --dry-run"}
+      - {name: Checkout repo,  uses: actions/checkout@v3}
+      - {name: Setup python,   uses: actions/setup-python@v3, with: {python-version: '3.x'}}
+      - {name: Print env,      run: "env"}
+      - {name: Install deps,   run: "pip install -r make_requirements.txt"}
+      - {name: Create Release, run: "python make.py gh_release --force"}
+  pypi:
+    name: PyPI Release
+    runs-on: ubuntu-latest
+    env: {TWINE_USERNAME: "__token__", TWINE_PASSWORD: "${{ secrets.PYPI_TOKEN }}"}
+    steps:
+      - {name: Checkout repo,   uses: actions/checkout@v3}
+      - {name: Setup python,    uses: actions/setup-python@v3, with: {python-version: '3.x'}}
+      - {name: Print env,       run: "env"}
+      - {name: Install deps,    run: "pip install -r make_requirements.txt"}
+      - {name: Publish to PyPI, run: "python make.py pypi_release --force"}
+  docs:
+    name: Documentation Release
+    runs-on: ubuntu-latest
+    env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
+    steps:
+      - {name: Checkout repo,          uses: actions/checkout@v3}
+      - {name: Setup python,           uses: actions/setup-python@v3}
+      - {name: Install dependencies,   run: "pip install -r make_requirements.txt"}
+      - {name: Install adadmire,       run: "pip install ."}
+      - {name: Build documentation,    run: "python make.py docs"}
+      - {name: Upload to GitHub Pages, run: "python make.py docs_release --force"}

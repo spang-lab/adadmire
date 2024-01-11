@@ -4,6 +4,7 @@
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
+        "alphaq",
         "Bioinformatics",
         "codecov",
         "freezegun",
@@ -14,7 +15,9 @@
         "PLOS",
         "pypa",
         "pypi",
-        "runslow"
+        "runslow",
+        "vloc",
+        "vpip"
     ],
     "ignoreWords": [],
     "import": []

@@ -1,3 +1,6 @@
+__pycache__/
+.pytest_cache/
 .vscode
+*.pyc
 dist/
-__pycache__
+docs/build/

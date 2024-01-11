@@ -2,16 +2,23 @@
 name: Tests
 on: {push: {branches: [main, auto-release]}, pull_request: {branches: [main]}}
 jobs:
-  test:
+  version-check:
+    name: Version Check
+    runs-on: ubuntu-latest
+    steps:
+      - {name: Checkout repo, uses: actions/checkout@v4}
+      - {name: Install python, uses: actions/setup-python@v5, with: {python-version: '3.8'}}
+      - {name: Install dependencies, run: "pip install -r make_requirements.txt"}
+      - {name: Check version, run: "python make.py version_check"}
+  unit-tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
     strategy: {matrix: {python-version: ['3.8', '3.12']}} # '3.9', '3.10', '3.11',
     steps:
       - {name: Checkout repo, uses: actions/checkout@v4}
       - {name: Install python, uses: actions/setup-python@v5, with: {python-version: "${{ matrix.python-version }}"}}
-      - {name: Prepare tests, run: "pip install -r make_requirements.txt"}
+      - {name: Install dependencies, run: "pip install -r make_requirements.txt"}
       - {name: Build adadmire, run: "python -m build"}
       - {name: Install adadmire, run: "python -m pip install ./dist/*.whl"}
-      - {name: Import adadmire, run: "python -c 'import adadmire'"}
-      - {name: Check version, run: "pytest -k test_version"}
-      - {name: Run test suite, run: "pytest --runslow"}
-      - {name: Code coverage, uses: codecov/codecov-action@v2}
+      - {name: Run pytest, run: "pytest --runslow"}
+      - {name: Upload coverage, uses: codecov/codecov-action@v2}
