@@ -7,7 +7,7 @@ Adadmire uses [pytest](https://docs.pytest.org/en/latest/), [freezegun](https://
 git clone https://github.com/spang-lab/adadmire.git # clone adadmire
 cd adadmire
 pip install -e . # install adadmire in editable mode
-pip install pytest pytest-cov freezegun # install testing dependencies
+pip install pytest pytest-cov pytest-xdist freezegun # install testing dependencies
 pytest --tb=short # run all fast tests and show short traceback
 pytest --runslow  # run all tests/test*py files
 pytest -k test_version # run tests/test_version.py only

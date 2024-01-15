@@ -1,36 +1,35 @@
-import re
-import git
-import toml
-import github
 import argparse
-import sys
+import json
 import os
 import subprocess
+import sys
+
+import git
+import github
+import packaging
 import requests
-import json
-import traceback
-from packaging import version
+import toml
 
 prog = "make.py"
-usage = "python make.py TARGET [--force|--dry-run] [--help]"
 description = "Adadmire Make Script"
+usage = "python make.py TARGET [--force|--dry-run] [--help]"
 epilog = f"For further details see {__file__ if '__file__' in globals() else 'make.py'}"
-details = """
-When called with argument `gh_release`, this script creates a tag and release in adadmire's GitHub repository with the version taken from `pyproject.toml` if the following conditions are fulfilled:
 
-1. The local git client is able to authenticate with the GitHub API. This can be achieved by setting up SSH keys or by configuring environment variable `GITHUB_TOKEN`.
-2. Tag `vX.Y.Z` does not exist yet where `X.Y.Z` is the version taken from `pyproject.toml`.
-3. The current commit hash matches the latest commit hash on the main branch.
-4. The script is run by a GitHub Action triggered by a push to the main branch.
 
-When called with argument `pypi_release`, this script creates a release on PyPI with the version taken from `pyproject.toml` if the following conditions are fulfilled:
+def parse_args(argv=sys.argv[1:]):
+    targets = ['gh_release', 'pypi_release', 'version_check', 'docs', 'docs_release']
+    parser = argparse.ArgumentParser(prog, usage, description, epilog, formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument('target', choices=targets, metavar="TARGET", help=f'Target to make. Valid targets are:\n{", ".join(targets)}')
+    parser.add_argument('--force', action='store_true', help='Force making of target despite failed checks?')
+    parser.add_argument('--dry-run', action='store_true', help='Skip making of target?')
+    args = parser.parse_args(args=argv)
+    h1(f"Commandline arguments:")
+    print(f"target = {args.target}")
+    print(f"force = {args.force}")
+    print(f"dry_run = {args.dry_run}")
+    return args
 
-1. The local twine installation is able to authenticate with the PyPI API. This can be achieved by setting up a local `.pypirc` file or by configuring environment variables `TWINE_USERNAME` and `TWINE_PASSWORD`.
-1. Builds the package by running `python -m build`. This creates a dist directory containing the built package.
-2. Publishes the package to PyPI by running `twine upload dist/*`. This uploads all files in the dist directory to PyPI.
-"""
 
-# Constants
 cyan = "\033[36m"
 blue = "\033[94m"
 red = "\033[91m"
@@ -49,23 +48,6 @@ def h2(text):
 def print_test_results(test_descriptions, tests_passed):
     for desc, passed in zip(test_descriptions, tests_passed):
         print(f"{desc}: {f'{green}ok{norm}' if passed else f'{red}failed{norm}'}")
-
-
-def parse_args(argv=sys.argv[1:]):
-    targets = ['gh_release', 'pypi_release', 'version_check', 'docs', 'docs_release']
-    parser = argparse.ArgumentParser(prog, usage, description, epilog, formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('target', choices=targets, metavar="TARGET",
-                        help=f'Target to make. Valid targets are:\n{", ".join(targets)}')
-    parser.add_argument('--force', action='store_true',
-                        help='Force making of target despite failed checks?')
-    parser.add_argument('--dry-run', action='store_true',
-                        help='Skip making of target?')
-    args = parser.parse_args(args=argv)
-    h1(f"Commandline arguments:")
-    print(f"target = {args.target}")
-    print(f"force = {args.force}")
-    print(f"dry_run = {args.dry_run}")
-    return args
 
 
 def make_gh_release(args):
@@ -87,16 +69,17 @@ def make_gh_release(args):
     print_test_results(test_descriptions, tests_passed)
 
     if (all(tests_passed) or args.force) and (not args.dry_run):
-        h1(f"Creating tag {tag} and release {tag} on GitHub")
-        github_repo.repo.create_git_tag_and_release(
-            tag=pyproject.tag,
-            tag_message=pyproject.tag,
-            release_name=pyproject.tag,
-            release_message=pyproject.tag,
-            object=local_repo.commit_hash,
-            type="commit"
-        )
-    sys.exit(0 if all(tests_passed) or args.dry_run else 1)
+        h1(f"Tagging commit {local_repo.commit_hash} as {tag}")
+        github_repo.repo.create_git_tag(tag=tag, message=tag, object=local_repo.commit_hash, type="commit")
+        h1(f"Creating release {tag} from tag {tag}")
+        try:
+            github_repo.repo.create_git_release(tag=tag, name=tag, message=tag)
+            h1(f"Finished creation of tag and release")
+        except github.GithubException as e:
+            print(f"Failed to create release. Error details:")
+            print(e)
+            sys.exit(1)
+    sys.exit(0 if all(tests_passed) or args.force or args.dry_run else 1)
 
 
 def make_pypi_release(args):
@@ -121,7 +104,8 @@ def make_pypi_release(args):
         h1(f"Building adadmire")
         subprocess.run([sys.executable, "-m", "build"])
         h1(f"Uploading adadmire to PyPI")
-        subprocess.run(["twine", "upload", "dist/*"])
+        subprocess.run(["twine", "upload", "dist/*", "--non-interactive"])
+        h1(f"Succesfully built and uploaded adadmire")
     sys.exit(0 if all(tests_passed) or args.dry_run else 1)
 
 
@@ -130,8 +114,8 @@ def make_version_check(args):
     h1("Collecting info about pyproject.toml and PyPI package")
     pyproject = Pyproject()
     pypi = PyPi()
-    vloc = version.parse(pyproject.version)
-    vpip = version.parse(pypi.latest_version)
+    vloc = packaging.version.parse(pyproject.version)
+    vpip = packaging.version.parse(pypi.latest_version)
 
     h1("Testing whether local version has been updated compared to latest PyPI version")
     if vloc > vpip:
@@ -194,12 +178,15 @@ class LocalRepo():
 
 class GithubRepo():
     def __init__(self):
-        GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-        self.repo = github.Github(GITHUB_TOKEN).get_repo("spang-lab/adadmire")
+        self.auth = github.Auth.Token(os.getenv("GITHUB_TOKEN"))
+        self.conn = github.Github(auth=self.auth)
+        self.repo = self.conn.get_repo("spang-lab/adadmire")
+        self.user = self.conn.get_user().login
         self.tags = [tag.name for tag in self.repo.get_tags()]
         self.latest_commit_hash_main = self.repo.get_branch("main").commit.sha
         h2(f"Github Repo Details:")
         print(f"Latest commit hash on main branch: {self.latest_commit_hash_main}")
+        print(f"Logged in as: {self.user}")
 
 
 class Pyproject():

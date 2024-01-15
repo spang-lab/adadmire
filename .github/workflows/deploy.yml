@@ -1,5 +1,5 @@
 name: Deploy
-on: {push: {branches: [main, auto-release]}}
+on: {push: {branches: [auto-release]}}
 jobs:
   github:
     name: GitHub Release

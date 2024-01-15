@@ -6,6 +6,7 @@ packaging
 PyGithub
 pytest
 pytest-cov
+pytest-xdist
 PyYAML
 requests
 scikit-learn
