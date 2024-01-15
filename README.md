@@ -19,7 +19,7 @@ pip install -U adadmire
 
 ## Usage
 
-The usage example in this section requires that you first download the data files from the [data](https://github.com/spang-lab/adadmire/tree/main/data) folder. For a description of the contents of this folder, see the section [Data](https://spang-lab.github.io/adadmire/usage.html#data) of the adadmire documentation site.
+The usage example in this section requires that you first download the data files from the [data](https://github.com/spang-lab/adadmire/tree/main/data) folder. For a description of the contents of this folder, see section [Data](https://spang-lab.github.io/adadmire/usage.html#data) of the adadmire documentation site.
 
 ```python
 from adadmire import admire, penalty
