@@ -1,6 +1,6 @@
 # Based on: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
 name: Tests
-on: {push: {branches: [auto-release]}, pull_request: {branches: [auto-release]}}
+on: {push: {branches: [main]}, pull_request: {branches: [main]}}
 jobs:
   version-check:
     name: Version Check

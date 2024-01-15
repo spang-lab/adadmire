@@ -1,5 +1,5 @@
 name: Deploy
-on: {push: {branches: [auto-release]}}
+on: {push: {branches: [main]}}
 env:
   GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
   TWINE_USERNAME: "${{ secrets.TWINE_USERNAME }}"
@@ -13,7 +13,7 @@ jobs:
       - {name: Setup python,   uses: actions/setup-python@v3, with: {python-version: '3.x'}}
       - {name: Print env,      run: "env"}
       - {name: Install deps,   run: "pip install -r make_requirements.txt"}
-      - {name: Create Release, run: "python make.py gh_release --force"}
+      - {name: Create Release, run: "python make.py gh_release"}
   pypi:
     name: PyPI Release
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - {name: Setup python,    uses: actions/setup-python@v3, with: {python-version: '3.x'}}
       - {name: Print env,       run: "env"}
       - {name: Install deps,    run: "pip install -r make_requirements.txt"}
-      - {name: Publish to PyPI, run: "python make.py pypi_release --force"}
+      - {name: Publish to PyPI, run: "python make.py pypi_release"}
   docs:
     name: Documentation Release
     runs-on: ubuntu-latest
@@ -32,4 +32,4 @@ jobs:
       - {name: Install dependencies,   run: "pip install -r make_requirements.txt"}
       - {name: Install adadmire,       run: "pip install ."}
       - {name: Build documentation,    run: "python make.py docs"}
-      - {name: Upload to GitHub Pages, run: "python make.py docs_release --force"}
+      - {name: Upload to GitHub Pages, run: "python make.py docs_release"}

@@ -37,8 +37,8 @@ green = "\033[92m"
 norm = "\033[0m"
 
 
-def h1(text):
-    print(f"{blue}# {text}{norm}")
+def h1(text, *args, **kwargs):
+    print(f"{blue}# {text}{norm}", *args, **kwargs)
 
 
 def h2(text):
@@ -101,12 +101,11 @@ def make_pypi_release(args):
     print_test_results(test_descriptions, tests_passed)
 
     if (all(tests_passed) or args.force) and (not args.dry_run):
-        h1(f"Building adadmire")
-        subprocess.run([sys.executable, "-m", "build"])
+        h1(f"Building adadmire...", end=" ")
+        subprocess.run([sys.executable, "-m", "build"], check=True)
         h1(f"Uploading adadmire to PyPI")
-        subprocess.run(["twine", "upload", "dist/*", "--non-interactive"])
-        h1(f"Succesfully built and uploaded adadmire")
-    sys.exit(0 if all(tests_passed) or args.dry_run else 1)
+        subprocess.run(["twine", "upload", "dist/*", "--non-interactive"], check=True)
+    sys.exit(0 if all(tests_passed) or args.force or args.dry_run else 1)
 
 
 def make_version_check(args):
