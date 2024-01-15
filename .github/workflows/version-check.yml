@@ -1,10 +1,10 @@
 # Based on: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
 name: Version Check
-runs-on: ubuntu-latest
 on: {pull_request: {branches: [main]}}
 jobs:
   version-check:
     name: Version Check
+    runs-on: ubuntu-latest
     steps:
       - {name: Checkout repo, uses: actions/checkout@v4}
       - {name: Install python, uses: actions/setup-python@v5}
