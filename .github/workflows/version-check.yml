@@ -2,8 +2,11 @@
 name: Version Check
 runs-on: ubuntu-latest
 on: {pull_request: {branches: [main]}}
-steps:
-  - {name: Checkout repo, uses: actions/checkout@v4}
-  - {name: Install python, uses: actions/setup-python@v5}
-  - {name: Install dependencies, run: "pip install -r make_requirements.txt"}
-  - {name: Check version, run: "python make.py version_check"}
+jobs:
+  version-check:
+    name: Version Check
+    steps:
+      - {name: Checkout repo, uses: actions/checkout@v4}
+      - {name: Install python, uses: actions/setup-python@v5}
+      - {name: Install dependencies, run: "pip install -r make_requirements.txt"}
+      - {name: Check version, run: "python make.py version_check"}
