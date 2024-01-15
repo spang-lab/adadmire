@@ -220,9 +220,12 @@ class PyPi():
         self.json = json.loads(response.text)
         self.latest_version = self.json['info']['version']
         self.versions = list(self.json['releases'].keys())
+
         h2(f"PyPI Details:")
         print(f"PyPI versions: {self.versions}")
         print(f"Latest PyPI version: {self.latest_version}")
+        print(f"len(TWINE_USERNAME) : {len(os.getenv('TWINE_USERNAME', ''))}")
+        print(f"len(TWINE_PASSWORD): {os.getenv('TWINE_PASSWORD', '')}")
 
 
 if __name__ == "__main__":

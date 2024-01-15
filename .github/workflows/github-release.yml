@@ -1,0 +1,10 @@
+name: GitHub Release
+runs-on: ubuntu-latest
+on: {push: {branches: [main]}}
+env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
+steps:
+  - {name: Checkout repo,  uses: actions/checkout@v3}
+  - {name: Setup python,   uses: actions/setup-python@v3, with: {python-version: '3.x'}}
+  - {name: Print env,      run: "env"}
+  - {name: Install deps,   run: "pip install -r make_requirements.txt"}
+  - {name: Create Release, run: "python make.py gh_release"}

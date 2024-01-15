@@ -1,0 +1,13 @@
+name: PyPI Release
+runs-on: ubuntu-latest
+on: {push: {branches: [main, fixci]}}
+env:
+  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  TWINE_USERNAME: "${{ secrets.TWINE_USERNAME }}"
+  TWINE_PASSWORD: "${{ secrets.TWINE_PASSWORD }}"
+steps:
+  - {name: Checkout repo,   uses: actions/checkout@v3}
+  - {name: Setup python,    uses: actions/setup-python@v3, with: {python-version: '3.x'}}
+  - {name: Print env,       run: "env"}
+  - {name: Install deps,    run: "pip install -r make_requirements.txt"}
+  - {name: Publish to PyPI, run: "python make.py pypi_release"}
