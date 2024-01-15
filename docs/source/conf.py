@@ -6,7 +6,11 @@
 import os
 import sys
 import toml
+sys.stdout.write(os.getcwd())
+sys.path.insert(0, os.path.abspath('../src'))  # Source code dir relative to this file
+sys.path.insert(0, os.path.abspath('../src/adadmire'))  # Source code dir relative to this file
 sys.path.insert(0, os.path.abspath('../../src'))  # Source code dir relative to this file
+sys.path.insert(0, os.path.abspath('../../src/adadmire'))  # Source code dir relative to this file
 
 # Project Info
 project = 'adadmire'

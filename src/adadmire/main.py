@@ -106,12 +106,12 @@ def loo_cv_cor(X, D, levels, lambda_seq, oIterations=10000, oTol=1e-6, t=0.05):
         - t (float, optional): Probability threshold value for smoothing corrections. Defaults to 0.05.
 
     Returns:
-    tuple: Tuple containing the following elements:
-        - prob_cont_old (numpy.ndarray): Estimated continuous probabilities.
-        - Var_old (numpy.ndarray): Variances of the continuous estimates.
-        - lam_opt_old (numpy.ndarray): Optimal Lambda.
-        - X_hat_cor_xp_old (numpy.ndarray): Predicted continuous data matrix X.
-        - D_hat_cor_xp_old (numpy.ndarray): Predicted discrete state matrix D.
+        tuple: Tuple containing the following elements:
+            - prob_cont_old (numpy.ndarray): Estimated continuous probabilities.
+            - Var_old (numpy.ndarray): Variances of the continuous estimates.
+            - lam_opt_old (numpy.ndarray): Optimal Lambda.
+            - X_hat_cor_xp_old (numpy.ndarray): Predicted continuous data matrix X.
+            - D_hat_cor_xp_old (numpy.ndarray): Predicted discrete state matrix D.
     """
     means = calc_mean(X, D)
     MSE = 2e10
@@ -558,13 +558,13 @@ def admire(X, D, levels, lam, oIterations=10000, oTol=1e-6, t=0.05):
         - oTol (float, optional): Tolerance for fitting MGMs. Defaults to 1e-6.
 
     Returns:
-    tuple: Tuple containing the following elements:
-        - X_cor (numpy.ndarray): Continuous data matrix X corrected for anomalies.
-        - n_cont (int): Number of detected continuous anomalies.
-        - position_cont (numpy.ndarray): Positions of detected continuous anomalies in X.
-        - D_cor (numpy.ndarray): Discrete states matrix D corrected for anomalies.
-        - n_disc (int): Number of detected discrete anomalies.
-        - position_disc (numpy.ndarray): Positions of detected discrete anomalies in D.
+        tuple: Tuple containing the following elements:
+            - X_cor (numpy.ndarray): Continuous data matrix X corrected for anomalies.
+            - n_cont (int): Number of detected continuous anomalies.
+            - position_cont (numpy.ndarray): Positions of detected continuous anomalies in X.
+            - D_cor (numpy.ndarray): Discrete states matrix D corrected for anomalies.
+            - n_disc (int): Number of detected discrete anomalies.
+            - position_disc (numpy.ndarray): Positions of detected discrete anomalies in D.
     """
     # perform cross validation
     prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X, D, levels, lam)
