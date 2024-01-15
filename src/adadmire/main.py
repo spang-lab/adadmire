@@ -8,7 +8,7 @@ __version__ = "1.0.0"
 
 
 def pred_continuous(B, Rho, alphap, D_pred, X_pred):
-    """Predict continuous values given estimated 
+    """Predict continuous values given estimated
     parameters of MGM and discrete values.
 
     Args:
@@ -38,7 +38,7 @@ def pred_continuous(B, Rho, alphap, D_pred, X_pred):
 
 
 def pred_discrete(Rho, X_pred, D_pred, alphaq, Phi, levels, p):
-    """Predict probabilities of observing states D_pred given estimated 
+    """Predict probabilities of observing states D_pred given estimated
     parameters of MGM and continuous values.
 
     Args:
@@ -138,7 +138,7 @@ def loo_cv_cor(X, D, levels, lambda_seq, oIterations=10000, oTol=1e-6, t=0.05):
         # loop over all samples
         for i in range(X.shape[0]):
             # sample which has to be predicted
-            print('Sample Nummer:', i)
+            print('Sample Number:', i)
             X_pred = X[i]
             D_pred = D[i]
             # rest of the samples
@@ -217,7 +217,7 @@ def loo_cv_cor(X, D, levels, lambda_seq, oIterations=10000, oTol=1e-6, t=0.05):
 
 def get_threshold_continuous(X, X_hat, dev):
     """
-    Calculate the threshold for continuous anomaly detection and correct matric X accordingly.
+    Calculate the threshold for continuous anomaly detection and correct matrix X accordingly.
 
     Args:
         - X (numpy.ndarray): Continuous data matrix, features in columns, samples in rows.
@@ -352,7 +352,7 @@ def place_anomalies_continuous(X, n_ano, epsilon, positive=False):
     Args:
         - X (numpy.ndarray): Continuous data matrix, features in columns, samples in rows.
         - n_ano (int): Number of anomalies to be placed.
-        - epsilon (list): List of anomaly strengths. For each entry one simulation is generated. 
+        - epsilon (list): List of anomaly strengths. For each entry one simulation is generated.
         - positive (bool, optional): If True, ensures anomalies are positive. Defaults to False.
 
     Returns:
@@ -398,7 +398,7 @@ def place_anomalies_continuous(X, n_ano, epsilon, positive=False):
         col = random.randint(0, (X.shape[1]-1))
         # first check if anomaly already has been placed at that position
         if sum((position == [[row, col]]).all(axis=1)) == 0:
-            # check if introduced anomaly > 15% deviation (only for epsilon < 1 relevant) and anomaly still positiv
+            # check if introduced anomaly > 15% deviation (only for epsilon < 1 relevant) and anomaly still positive
             if positive == True:
                 if rel_dev(ano_retrans[0][row, col], X[row, col]) > 0.15 and ano_retrans[(len(epsilon)-1)][row, col] > 0:
                     k = k+1
@@ -544,6 +544,7 @@ def penalty(X, D, min, max, step):
     lambda_seq = lam_zero * lambda_seq
     return lambda_seq
 
+
 def admire(X, D, levels, lam, oIterations=10000, oTol=1e-6, t=0.05):
     """
     Detect and correct data anomalies in continuous data matrix X and discrete states matrix D.
@@ -566,7 +567,7 @@ def admire(X, D, levels, lam, oIterations=10000, oTol=1e-6, t=0.05):
         - position_disc (numpy.ndarray): Positions of detected discrete anomalies in D.
     """
     # perform cross validation
-    prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X,D,levels,lam)
+    prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X, D, levels, lam)
     # determine continuous threshold
     X_cor, threshold_cont, n_cont,  position_cont = get_threshold_continuous(X, x_hat, B_m)
     # determine discrete threshold
@@ -575,18 +576,15 @@ def admire(X, D, levels, lam, oIterations=10000, oTol=1e-6, t=0.05):
     D_cor = np.copy(D)
     levelSum = np.cumsum(levels)
     for i in range(n_disc):
-        d_h = d_hat[position_disc[0, i],:]
-        d_old = D[position_disc[0,i],:]
+        d_h = d_hat[position_disc[0, i], :]
+        d_old = D[position_disc[0, i], :]
         d_var = 0
         for k in range(len(d_h)):
             if k == levelSum[d_var]:
                 d_var = d_var + 1
-            if d_old[k] == 1 and k == position_disc[1,i]:
+            if d_old[k] == 1 and k == position_disc[1, i]:
                 tmp = np.zeros(
                     shape=len(d_h[levelSum[d_var-1]:levelSum[d_var]]))
                 tmp[np.where(d_h[levelSum[d_var-1]:levelSum[d_var]] == max(d_h[levelSum[d_var-1]:levelSum[d_var]]))] = 1
-                D_cor[position_disc[0, i],levelSum[d_var-1]:levelSum[d_var]] = tmp
+                D_cor[position_disc[0, i], levelSum[d_var-1]:levelSum[d_var]] = tmp
     return X_cor, n_cont, position_cont, D_cor, n_disc, position_disc
-
-
-

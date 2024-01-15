@@ -1,0 +1,15 @@
+build
+freezegun
+ghp-import
+GitPython
+packaging
+PyGithub
+pytest
+pytest-cov
+pytest-xdist
+PyYAML
+requests
+scikit-learn
+scipy
+toml
+twine

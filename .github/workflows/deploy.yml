@@ -1,40 +1,35 @@
-# Based on:
-# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
-name: Upload Package
-on:
-  release:
-    types: [published]
+name: Deploy
+on: {push: {branches: [main]}}
+env:
+  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  TWINE_USERNAME: "${{ secrets.TWINE_USERNAME }}"
+  TWINE_PASSWORD: "${{ secrets.TWINE_PASSWORD }}"
 jobs:
-  build:
+  github:
+    name: GitHub Release
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.x"
-    - name: Install pypa/build
-      run: python3 -m pip install build --user
-    - name: Build a binary wheel and a source tarball
-      run: python3 -m build
-    - name: Store the distribution packages
-      uses: actions/upload-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
-  deploy:
+      - {name: Checkout repo,  uses: actions/checkout@v3}
+      - {name: Setup python,   uses: actions/setup-python@v3, with: {python-version: '3.x'}}
+      - {name: Print env,      run: "env"}
+      - {name: Install deps,   run: "pip install -r make_requirements.txt"}
+      - {name: Create Release, run: "python make.py gh_release"}
+  pypi:
+    name: PyPI Release
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/adadmire # Replace <package-name> with your PyPI project name
-    permissions:
-      contents: read
-      id-token: write # IMPORTANT: mandatory for trusted publishing
     steps:
-    - name: Download all the dists
-      uses: actions/download-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
-    - name: Publish distribution to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+      - {name: Checkout repo,   uses: actions/checkout@v3}
+      - {name: Setup python,    uses: actions/setup-python@v3, with: {python-version: '3.x'}}
+      - {name: Print env,       run: "env"}
+      - {name: Install deps,    run: "pip install -r make_requirements.txt"}
+      - {name: Publish to PyPI, run: "python make.py pypi_release"}
+  docs:
+    name: Documentation Release
+    runs-on: ubuntu-latest
+    steps:
+      - {name: Checkout repo,          uses: actions/checkout@v3}
+      - {name: Setup python,           uses: actions/setup-python@v3}
+      - {name: Install dependencies,   run: "pip install -r make_requirements.txt"}
+      - {name: Install adadmire,       run: "pip install ."}
+      - {name: Build documentation,    run: "python make.py docs"}
+      - {name: Upload to GitHub Pages, run: "python make.py docs_release"}

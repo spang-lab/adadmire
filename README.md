@@ -14,7 +14,7 @@ pip install -U adadmire
 
 ## Usage
 
-The usage example in this section require you to download the data files from folder [data](https://github.com/spang-lab/adadmire/tree/main/data) first. For a description of the contents of this folder, see section [Data](#data).
+The usage example in this section requires you to download the data files from folder [data](https://github.com/spang-lab/adadmire/tree/main/data) first. For a description of the contents of this folder, see section [Data](#data).
 
 ### Example 1
 
@@ -31,7 +31,7 @@ levels = np.load('data/Feist_et_al/levels.npy') # levels of discrete variables
 lam = penalty(X, D, min= -2.25, max = -1.5, step =0.25)
 print(lam)
 # get anomalies in continuous and discrete data
-X_cor, n_cont, position_cont, D_cor, n_disc, position_disc = admire(X,D,levels, lam)
+X_cor, n_cont, position_cont, D_cor, n_disc, position_disc = admire(X, D, levels, lam)
 # returns corrected X, number of continuous anomalies, position in X
 # corrected D, number of discrete anomalies, position in D
 print(n_cont)
