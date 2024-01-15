@@ -2,6 +2,7 @@ build
 freezegun
 ghp-import
 GitPython
+myst_parser
 packaging
 PyGithub
 pytest
@@ -11,5 +12,7 @@ PyYAML
 requests
 scikit-learn
 scipy
+sphinx
+sphinx_rtd_theme
 toml
 twine
