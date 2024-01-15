@@ -6,7 +6,7 @@ import sys
 
 import git
 import github
-import packaging
+import packaging.version
 import requests
 import toml
 
