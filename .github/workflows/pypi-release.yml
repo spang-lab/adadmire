@@ -13,4 +13,4 @@ jobs:
       - {name: Setup python,    uses: actions/setup-python@v3, with: {python-version: '3.x'}}
       - {name: Print env,       run: "env"}
       - {name: Install deps,    run: "pip install -r make_requirements.txt"}
-      - {name: Publish to PyPI, run: "python make.py pypi_release"}
+      - {name: Publish to PyPI, run: "python make.py pypi_release --force"}

@@ -104,7 +104,8 @@ def make_pypi_release(args):
         h1(f"Building adadmire...", end=" ")
         subprocess.run([sys.executable, "-m", "build"], check=True)
         h1(f"Uploading adadmire to PyPI")
-        subprocess.run(["twine", "upload", "dist/*", "--non-interactive"], check=True)
+        cmd = ["twine", "upload", "dist/*", "--non-interactive", "--verbose"]
+        proc = subprocess.run(cmd, check=True, stderr=subprocess.STDOUT)
     sys.exit(0 if all(tests_passed) or args.force or args.dry_run else 1)
 
 
@@ -225,7 +226,7 @@ class PyPi():
         print(f"PyPI versions: {self.versions}")
         print(f"Latest PyPI version: {self.latest_version}")
         print(f"len(TWINE_USERNAME) : {len(os.getenv('TWINE_USERNAME', ''))}")
-        print(f"len(TWINE_PASSWORD): {os.getenv('TWINE_PASSWORD', '')}")
+        print(f"len(TWINE_PASSWORD): {len(os.getenv('TWINE_PASSWORD', ''))}")
 
 
 if __name__ == "__main__":
