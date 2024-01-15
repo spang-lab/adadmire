@@ -1,0 +1,14 @@
+name: Documentation Release
+on: {push: {branches: [main]}}
+env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
+jobs:
+  docs-release:
+    name: Documentation Release
+    runs-on: ubuntu-latest
+    steps:
+      - {name: Checkout repo,          uses: actions/checkout@v3}
+      - {name: Setup python,           uses: actions/setup-python@v3}
+      - {name: Install dependencies,   run: "pip install -r make_requirements.txt"}
+      - {name: Install adadmire,       run: "pip install ."}
+      - {name: Build documentation,    run: "python make.py docs"}
+      - {name: Upload to GitHub Pages, run: "python make.py docs_release"}

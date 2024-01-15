@@ -16,6 +16,12 @@ usage = "python make.py TARGET [--force|--dry-run] [--help]"
 epilog = f"For further details see {__file__ if '__file__' in globals() else 'make.py'}"
 
 
+def run(cmd, cwd=None, check=True):
+    sys.stdout.flush()
+    sys.stderr.flush()
+    subprocess.run(cmd, cwd=cwd if cwd else os.getcwd(), check=check)
+
+
 def parse_args(argv=sys.argv[1:]):
     targets = ['gh_release', 'pypi_release', 'version_check', 'docs', 'docs_release']
     parser = argparse.ArgumentParser(prog, usage, description, epilog, formatter_class=argparse.RawTextHelpFormatter)
@@ -102,9 +108,9 @@ def make_pypi_release(args):
 
     if (all(tests_passed) or args.force) and (not args.dry_run):
         h1(f"Building adadmire...", end=" ")
-        subprocess.run([sys.executable, "-m", "build"], check=True)
+        run([sys.executable, "-m", "build"])
         h1(f"Uploading adadmire to PyPI")
-        subprocess.run(["twine", "upload", "dist/*", "--non-interactive"], check=True)
+        run(["twine", "upload", "dist/*", "--non-interactive", "--verbose"])
     sys.exit(0 if all(tests_passed) or args.force or args.dry_run else 1)
 
 
@@ -128,7 +134,7 @@ def make_version_check(args):
 def make_docs(args):
     if not args.dry_run:
         h1("Building docs")
-        subprocess.run(["make", "html"], cwd="docs")
+        run(["make", "html"], cwd="docs")
 
 
 def make_docs_release(args):
@@ -152,9 +158,9 @@ def make_docs_release(args):
     """
     if not args.dry_run:
         h1("Building docs")
-        subprocess.run(["make", "html"], cwd="docs")
+        run(["make", "html"], cwd="docs")
         h1("Uploading docs to GitHub Pages")
-        subprocess.run(["ghp-import", "-npfo", "docs/build/html"])
+        run(["ghp-import", "-npfo", "docs/build/html"])
 
 
 class LocalRepo():
@@ -220,9 +226,12 @@ class PyPi():
         self.json = json.loads(response.text)
         self.latest_version = self.json['info']['version']
         self.versions = list(self.json['releases'].keys())
+
         h2(f"PyPI Details:")
         print(f"PyPI versions: {self.versions}")
         print(f"Latest PyPI version: {self.latest_version}")
+        print(f"len(TWINE_USERNAME) : {len(os.getenv('TWINE_USERNAME', ''))}")
+        print(f"len(TWINE_PASSWORD): {len(os.getenv('TWINE_PASSWORD', ''))}")
 
 
 if __name__ == "__main__":
