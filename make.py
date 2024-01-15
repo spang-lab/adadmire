@@ -160,6 +160,7 @@ def make_docs_release(args):
 
 class LocalRepo():
     def __init__(self):
+        h2(f"Local Repo Details:")
         self.repo = repo = git.Repo()
         self.url = repo.remotes.origin.url
         self.branch = repo.active_branch
@@ -167,7 +168,6 @@ class LocalRepo():
         self.commit_datetime = repo.head.object.committed_datetime
         self.commit_tags = repo.git.tag('--points-at', 'HEAD')
         self.tags = [str(tag) for tag in repo.tags]
-        h2(f"Local Repo Details:")
         print(f"Current repo url: {self.url}")
         print(f"Current repo branch: {self.branch}")
         print(f"Current commit hash: {self.commit_hash}")
@@ -178,13 +178,18 @@ class LocalRepo():
 
 class GithubRepo():
     def __init__(self):
+        h2(f"Github Repo Details:")
         self.auth = github.Auth.Token(os.getenv("GITHUB_TOKEN"))
         self.conn = github.Github(auth=self.auth)
         self.repo = self.conn.get_repo("spang-lab/adadmire")
-        self.user = self.conn.get_user().login
+        try:
+            self.user = self.conn.get_user().login
+        except github.GithubException as e:
+            print(f"Failed to get user. Setting user to UNKNOWN. Error details:")
+            print(e)
+            self.user = "UNKNOWN"
         self.tags = [tag.name for tag in self.repo.get_tags()]
         self.latest_commit_hash_main = self.repo.get_branch("main").commit.sha
-        h2(f"Github Repo Details:")
         print(f"Latest commit hash on main branch: {self.latest_commit_hash_main}")
         print(f"Logged in as: {self.user}")
 

@@ -1,10 +1,13 @@
 name: Deploy
 on: {push: {branches: [auto-release]}}
 jobs:
+  env:
+    GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    TWINE_USERNAME: "${{ secrets.TWINE_USERNAME }}"
+    TWINE_PASSWORD: "${{ secrets.TWINE_PASSWORD }}"
   github:
     name: GitHub Release
     runs-on: ubuntu-latest
-    env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
     steps:
       - {name: Checkout repo,  uses: actions/checkout@v3}
       - {name: Setup python,   uses: actions/setup-python@v3, with: {python-version: '3.x'}}
@@ -14,7 +17,6 @@ jobs:
   pypi:
     name: PyPI Release
     runs-on: ubuntu-latest
-    env: {TWINE_USERNAME: "__token__", TWINE_PASSWORD: "${{ secrets.PYPI_TOKEN }}"}
     steps:
       - {name: Checkout repo,   uses: actions/checkout@v3}
       - {name: Setup python,    uses: actions/setup-python@v3, with: {python-version: '3.x'}}
@@ -24,7 +26,6 @@ jobs:
   docs:
     name: Documentation Release
     runs-on: ubuntu-latest
-    env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
     steps:
       - {name: Checkout repo,          uses: actions/checkout@v3}
       - {name: Setup python,           uses: actions/setup-python@v3}
