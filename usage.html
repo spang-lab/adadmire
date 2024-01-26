@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; adadmire 1.0.14 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=cb0f6c17"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modules" href="modules.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            adadmire
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-1">Example 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-2">Example 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-3">Example 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#feist-et-al-2018">Feist et al, 2018</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#higuera-et-al-2015">Higuera et al, 2015</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buck-et-al-2023">Buck et al, 2023</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">adadmire</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<p>The usage example in this section requires you to download the data files from folder <a class="reference external" href="https://github.com/spang-lab/adadmire/tree/main/data">data</a> or the urnc repository first. For a description of the contents of this folder, see section <a class="reference internal" href="adadmire.html#adadmire.apgpy.IWrapper.data" title="adadmire.apgpy.IWrapper.data"><span class="xref myst py py-attr">Data</span></a>.</p>
+<p>For those without prior Python experience, a comprehensive guide on how to install Python and Adadmire is available at <a class="reference external" href="https://github.com/spang-lab/adadmire/blob/main/docs/source/manual.pdf">github.com/spang-lab/adadmire/docs/source/manual.pdf</a>.</p>
+<section id="example-1">
+<h2>Example 1<a class="headerlink" href="#example-1" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adadmire</span> <span class="kn">import</span> <span class="n">admire</span><span class="p">,</span> <span class="n">penalty</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Load Feist et al example data into python</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Feist_et_al/scaled_data_raw.npy&#39;</span><span class="p">)</span> <span class="c1"># continuous data</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Feist_et_al/pheno.npy&#39;</span><span class="p">)</span> <span class="c1"># discrete data</span>
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Feist_et_al/levels.npy&#39;</span><span class="p">)</span> <span class="c1"># levels of discrete variables</span>
+
+<span class="c1"># Define lambda sequence of penalty values</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="n">penalty</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span> <span class="o">-</span><span class="mf">2.25</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span>
+
+<span class="c1"># Get anomalies in continuous and discrete data</span>
+<span class="n">X_cor</span><span class="p">,</span> <span class="n">n_cont</span><span class="p">,</span> <span class="n">position_cont</span><span class="p">,</span> <span class="n">D_cor</span><span class="p">,</span> <span class="n">n_disc</span><span class="p">,</span> <span class="n">position_disc</span> <span class="o">=</span> <span class="n">admire</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">lam</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_cor</span><span class="p">)</span> <span class="c1"># Corrected X</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_cont</span><span class="p">)</span> <span class="c1"># Number of continuous anomalies (46)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">position_cont</span><span class="p">)</span> <span class="c1"># Position in X</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">D_cor</span><span class="p">)</span> <span class="c1"># Corrected D</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_disc</span><span class="p">)</span> <span class="c1"># Number of discrete anomalies (0)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">position_disc</span><span class="p">)</span> <span class="c1"># Position in D</span>
+</pre></div>
+</div>
+</section>
+<section id="example-2">
+<h2>Example 2<a class="headerlink" href="#example-2" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adadmire</span> <span class="kn">import</span> <span class="n">admire</span><span class="p">,</span> <span class="n">place_anomalies_continuous</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Higuera_et_al/scaled_data_raw.npy&#39;</span><span class="p">)</span> <span class="c1"># continuous data</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Higuera_et_al/pheno.npy&#39;</span><span class="p">)</span> <span class="c1"># discrete data</span>
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Higuera_et_al/levels.npy&#39;</span><span class="p">)</span> <span class="c1"># levels of discrete variables</span>
+
+<span class="c1"># Use original data set and create simulations by introducing artificial anomalies with various strengths</span>
+<span class="n">X_ano</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">place_anomalies_continuous</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_ano</span> <span class="o">=</span> <span class="mi">1360</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">]))</span>
+<span class="c1"># n_ano: how many anomalies should be introduced?</span>
+<span class="c1"># epsilon: defines &quot;strength&quot; of introduced anomalies</span>
+
+<span class="c1"># Define lambda sequence of penalty values</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="n">penalty</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span> <span class="o">-</span><span class="mf">2.25</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+
+<span class="c1"># Now detect anomalies in simulation with eps = 1.0</span>
+<span class="n">X_cor</span><span class="p">,</span> <span class="n">n_cont</span><span class="p">,</span> <span class="n">position_cont</span><span class="p">,</span> <span class="n">D_cor</span><span class="p">,</span> <span class="n">n_disc</span><span class="p">,</span> <span class="n">position_disc</span> <span class="o">=</span> <span class="n">admire</span><span class="p">(</span><span class="n">X_ano</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">D</span><span class="p">,</span><span class="n">levels</span><span class="p">,</span> <span class="n">lam</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-3">
+<h2>Example 3<a class="headerlink" href="#example-3" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">adadmire</span> <span class="kn">import</span> <span class="n">impute</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Load data containing missing values in continuous features</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Higuera_et_al/data_na_scaled.npy&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load data containing missing values in discrete features</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Higuera_et_al/pheno_na.npy&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span> <span class="c1"># 1360</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">D</span><span class="p">)))</span> <span class="c1"># 120</span>
+
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/Higuera_et_al/levels.npy&#39;</span><span class="p">)</span> <span class="c1"># levels of discrete variables</span>
+
+<span class="c1"># Define Lambda sequence</span>
+<span class="n">lam_zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">D</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">lam_seq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.75</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="o">-</span><span class="mf">2.25</span><span class="p">])</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="p">[</span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lam_seq</span><span class="p">]</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="n">lam_zero</span> <span class="o">*</span> <span class="n">lam</span>
+
+<span class="c1"># Now impute with ADMIRE</span>
+<span class="n">X_imp</span><span class="p">,</span> <span class="n">D_imp</span><span class="p">,</span><span class="n">lam_o</span> <span class="o">=</span> <span class="n">impute</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">levels</span><span class="p">,</span><span class="n">lam</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">X_imp</span><span class="p">)))</span> <span class="c1"># 0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">D_imp</span><span class="p">)))</span> <span class="c1"># 0</span>
+</pre></div>
+</div>
+</section>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Link to this heading"></a></h2>
+<p>In the directory <strong>data</strong> you can find two sub directories:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Feist_et_al</span></code>: contains data set as described in <a class="reference internal" href="#feist-et-al-2018"><span class="xref myst">Feist et al, 2018</span></a> and <a class="reference internal" href="#buck-et-al-2023"><span class="xref myst">Buck et al, 2023</span></a>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_raw.xlsx</span></code>: raw, unscaled data, contains measurements of 100 samples and 49 metabolites</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scaled_data_raw.npy</span></code>: numpy file containing scaled version of <code class="docutils literal notranslate"><span class="pre">data_raw.xlsx</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pheno_with_simulations.xlsx</span></code>: pheno data corresponding to <code class="docutils literal notranslate"><span class="pre">data_raw.xlsx</span></code>, also contains cell stimulations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pheno.npy</span></code>: numpy file corresponding to <code class="docutils literal notranslate"><span class="pre">pheno_with_simulations.xlsx</span></code> (only contains variables batch and myc)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">levels.npy</span></code>: numpy file containing the levels of the discrete variables in <code class="docutils literal notranslate"><span class="pre">pheno.npy</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Higuera_et_al</span></code>: contains down sampled data set from <a class="reference internal" href="#higuera-et-al-2015"><span class="xref myst">Higuera et al, 2015</span></a> as described in <a class="reference internal" href="#buck-et-al-2023"><span class="xref myst">Buck et al, 2023</span></a>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_raw.xlsx</span></code>: raw, unscaled data, contains measurements of 400 samples and 68 proteins (down sampled from <a class="reference internal" href="#higuera-et-al-2015"><span class="xref myst">Higuera et al, 2015</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scaled_data_raw.npy</span></code>: numpy file containing scaled version of <code class="docutils literal notranslate"><span class="pre">data_raw.xlsx</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pheno_.xlsx</span></code>: pheno data corresponding to <code class="docutils literal notranslate"><span class="pre">data_raw.xlsx</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pheno.npy</span></code>: numpy file corresponding to <code class="docutils literal notranslate"><span class="pre">pheno.xlsx</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">levels.npy</span></code>: numpy file containing the levels of the discrete variables in <code class="docutils literal notranslate"><span class="pre">pheno.npy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_na_scaled.npy</span></code>: numpy file containing scaled version of <code class="docutils literal notranslate"><span class="pre">data_raw.xlsx</span></code> where 5% of the values are missing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pheno_na.npy</span></code>: numpy file corresponding to <code class="docutils literal notranslate"><span class="pre">pheno.xlsx</span></code> with 5% of missing values included</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<section id="feist-et-al-2018">
+<h3>Feist et al, 2018<a class="headerlink" href="#feist-et-al-2018" title="Link to this heading"></a></h3>
+<p>Feist, Maren, et al. <a class="reference external" href="https://doi.org/10.1038/s41467-018-03803-x">“Cooperative stat/nf-kb signaling regulates lymphoma metabolic reprogramming and aberrant got2 expression.”</a> Nature Communications, 2018</p>
+</section>
+<section id="higuera-et-al-2015">
+<h3>Higuera et al, 2015<a class="headerlink" href="#higuera-et-al-2015" title="Link to this heading"></a></h3>
+<p>Higuera, Clara, et al. <a class="reference external" href="https://doi.org/10.1371/journal.pone.0129126">“Self-organizing feature maps identify proteins critical to learning in a mouse model of down syndrome.”</a> PLOS ONE, 2015</p>
+</section>
+<section id="buck-et-al-2023">
+<h3>Buck et al, 2023<a class="headerlink" href="#buck-et-al-2023" title="Link to this heading"></a></h3>
+<p>Buck, Lena et al. <a class="reference external" href="https://doi.org/10.1093/bioinformatics/btad501">“Anomaly detection in mixed high dimensional molecular data”</a> Bioinformatics, 2023</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lena Buck, Tobias Schmidt.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
