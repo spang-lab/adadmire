@@ -8,7 +8,7 @@ In case you want to **write code** for this package, please also create an [Issu
 2. Create a new branch for your changes
 3. Make your code changes by updating the files in folder [src/adadmire](https://github.com/spang-lab/adadmire/tree/main/src/adadmire)
 4. Test your changes by following the steps outlined in [Testing](https://spang-lab.github.io/adadmire/testing.html)
-5. Update the tests in folder [tests](https://github.com/spang-lab/adadmire/tree/main/tests) is necessary
+5. Update the tests in folder [tests](https://github.com/spang-lab/adadmire/tree/main/tests) if necessary
 6. Increase the version in [pyproject.toml](https://github.com/spang-lab/adadmire/blob/main/pyproject.toml)
 7. Push your changes to the repository
 8. Create a pull request for your changes
