@@ -2,6 +2,8 @@
 
 The usage example in this section requires you to download the data files from folder [data](https://github.com/spang-lab/adadmire/tree/main/data) or the urnc repository first. For a description of the contents of this folder, see section [Data](#data).
 
+For those without prior Python experience, a comprehensive guide on how to install Python and Adadmire is available at [github.com/spang-lab/adadmire/docs/source/manual.pdf](https://github.com/spang-lab/adadmire/blob/main/docs/source/manual.pdf).
+
 ### Example 1
 
 ```python
