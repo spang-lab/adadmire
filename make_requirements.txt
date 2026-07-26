@@ -1,17 +1,12 @@
+# Dependencies of make.py and of the documentation build.
+# Testing dependencies are declared as the `test` extra in pyproject.toml.
 build
-freezegun
 ghp-import
 GitPython
 myst_parser
 packaging
 PyGithub
-pytest
-pytest-cov
-pytest-xdist
-PyYAML
 requests
-scikit-learn
-scipy
 sphinx
 sphinx_rtd_theme
 toml

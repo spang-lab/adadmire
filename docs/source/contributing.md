@@ -1,6 +1,6 @@
 # Contributing
 
-In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [gitlab.spang-lab.de/bul38390/admire/issues](https://github.com/spang-lab/adadmire/issues).
+In case you have **questions**, **feature requests** or find any **bugs** in adadmire, please create a corresponding issue at [github.com/spang-lab/adadmire/issues](https://github.com/spang-lab/adadmire/issues).
 
 In case you want to **write code** for this package, please also create an [Issue](https://github.com/spang-lab/adadmire/issues) first, in which you describe your planned code contribution. After acceptance of your proposal by an active maintainer of the repository you will get permissions to create branches for this repository. After this, please follow the steps outlined in the following to create a new version of adadmire.
 

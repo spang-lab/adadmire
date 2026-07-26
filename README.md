@@ -1,11 +1,12 @@
-[![Unit Tests](https://github.com/spang-lab/adadmire/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/spang-lab/adadmire/actions/workflows/unit-tests.yml)
-[![Coverage Badge](https://img.shields.io/codecov/c/github/spang-lab/adadmire?label=Code%20Coverage)](https://app.codecov.io/gh/spang-lab/adadmire?branch=main)
-[![Download Badge](https://img.shields.io/pypi/dm/adadmire.svg?label=PyPI%20Downloads)](
-https://pypi.org/project/adadmire/)
+[![Unit Tests](https://github.com/spang-lab/adadmire/actions/workflows/unit-tests.yml/badge.svg?branch=main)](https://github.com/spang-lab/adadmire/actions/workflows/unit-tests.yml)
+[![Code Coverage](https://img.shields.io/codecov/c/github/spang-lab/adadmire?label=Code%20Coverage)](https://app.codecov.io/gh/spang-lab/adadmire?branch=main)
+[![PyPI Version](https://img.shields.io/pypi/v/adadmire.svg?label=PyPI%20Version)](https://pypi.org/project/adadmire/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/adadmire.svg?label=Python)](https://pypi.org/project/adadmire/)
+[![PyPI Downloads](https://static.pepy.tech/badge/adadmire/month)](https://pepy.tech/project/adadmire)
 
 # adadmire
 
-<!-- ATTENTION: this file will be displayed not only on Github, but also on PyPI, so NO relative relative to files in the repo must be used -->
+<!-- ATTENTION: this file is displayed not only on GitHub, but also on PyPI, so no links relative to files in the repo must be used -->
 
 Functions for detecting anomalies in molecular data sets using Mixed Graphical Models.
 

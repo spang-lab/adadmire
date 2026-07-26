@@ -1,10 +1,10 @@
 # Usage
 
-The usage example in this section requires you to download the data files from folder [data](https://github.com/spang-lab/adadmire/tree/main/data) or the urnc repository first. For a description of the contents of this folder, see section [Data](#data).
+The usage example in this section requires you to download the data files from folder [data](https://github.com/spang-lab/adadmire/tree/main/data) of the adadmire repository first. For a description of the contents of this folder, see section [Data](#data).
 
 For those without prior Python experience, a comprehensive guide on how to install Python and Adadmire is available at [github.com/spang-lab/adadmire/docs/source/manual.pdf](https://github.com/spang-lab/adadmire/blob/main/docs/source/manual.pdf).
 
-### Example 1
+## Example 1
 
 ```python
 from adadmire import admire, penalty
@@ -29,7 +29,7 @@ print(n_disc) # Number of discrete anomalies (0)
 print(position_disc) # Position in D
 ```
 
-### Example 2
+## Example 2
 
 ```python
 from adadmire import admire, place_anomalies_continuous
@@ -51,7 +51,7 @@ lam = penalty(X, D, min= -2.25, max = -1.5, step =0.25)
 X_cor, n_cont, position_cont, D_cor, n_disc, position_disc = admire(X_ano[2],D,levels, lam)
 ```
 
-### Example 3
+## Example 3
 
 ```python
 from adadmire import impute
@@ -81,7 +81,7 @@ print(np.sum(np.isnan(X_imp))) # 0
 print(np.sum(np.isnan(D_imp))) # 0
 ```
 
-### Data
+## Data
 
 In the directory **data** you can find two sub directories:
 * `Feist_et_al`: contains data set as described in [Feist et al, 2018](#feist-et-al-2018) and [Buck et al, 2023](#buck-et-al-2023).

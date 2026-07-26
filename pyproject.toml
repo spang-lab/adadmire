@@ -4,24 +4,43 @@ build-backend = "hatchling.build"
 
 [project]
 name = "adadmire"
-version = "1.0.14"
+version = "1.0.15"
 authors = [
   { name="Lena Buck", email="lena.buck@ukr.de" },
   { name="Tobias Schmidt", email="tobias2.schmidt@ukr.de" },
 ]
 description = "Functions for detecting anomalies in tabular datasets using Mixed Graphical Models."
 dependencies = [
-  "scipy >= 1, < 2",
-  "scikit-learn >= 1, <2",
+  "numpy >= 1.20",
+  "scipy >= 1",
+  "scikit-learn >= 1",
 ]
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["anomaly detection", "mixed graphical model", "metabolomics", "imputation"]
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
+
+[project.optional-dependencies]
+plot = ["matplotlib"] # only required for apgpy's `gen_plots` option
+test = ["pytest", "pytest-cov", "pytest-xdist"]
 
 [project.urls]
 "Homepage" = "https://github.com/spang-lab/adadmire"
+"Documentation" = "https://spang-lab.github.io/adadmire/"
 "Bug Tracker" = "https://github.com/spang-lab/adadmire/issues"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
