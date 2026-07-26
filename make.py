@@ -65,13 +65,15 @@ def make_gh_release(args):
     pyproject = Pyproject()
     tag = pyproject.tag
 
+    if tag in github_repo.tags:
+        h1(f"Release {tag} exists already. Nothing to do.")
+        sys.exit(0)
+
     h1("Testing whether conditions for making a Github release are fulfilled")
-    test_descriptions = ["Tag does not exist yet",
-                         "Current commit hash matches latest commit hash on main branch",
-                         "This script is run by a GitHub Action triggered by a push to main"]
-    tests_passed = [pyproject.tag not in github_repo.tags,
-                    local_repo.commit_hash == github_repo.latest_commit_hash_main,
-                    github_action.triggered_by_push_to_main]
+    test_descriptions = ["Current commit hash matches latest commit hash on main branch",
+                         "This script is run by a GitHub Action running on the main branch"]
+    tests_passed = [local_repo.commit_hash == github_repo.latest_commit_hash_main,
+                    github_action.triggered_from_main]
     print_test_results(test_descriptions, tests_passed)
 
     if (all(tests_passed) or args.force) and (not args.dry_run):
@@ -97,13 +99,15 @@ def make_pypi_release(args):
     pyproject = Pyproject()
     pypi = PyPi()
 
+    if pyproject.version in pypi.versions:
+        h1(f"Version {pyproject.version} exists already on PyPI. Nothing to do.")
+        sys.exit(0)
+
     h1("Testing whether conditions for making a PyPI release are fulfilled")
-    test_descriptions = ["Version as specified in .pyproject.toml does not exist on PyPI yet",
-                         "Current commit hash matches latest commit hash on main branch",
-                         "This script is run by a GitHub Action triggered by a push to main"]
-    tests_passed = [pyproject.version not in pypi.versions,
-                    local_repo.commit_hash == github_repo.latest_commit_hash_main,
-                    github_action.triggered_by_push_to_main]
+    test_descriptions = ["Current commit hash matches latest commit hash on main branch",
+                         "This script is run by a GitHub Action running on the main branch"]
+    tests_passed = [local_repo.commit_hash == github_repo.latest_commit_hash_main,
+                    github_action.triggered_from_main]
     print_test_results(test_descriptions, tests_passed)
 
     if (all(tests_passed) or args.force) and (not args.dry_run):
@@ -213,11 +217,12 @@ class GithubAction():
     def __init__(self):
         GITHUB_REF = os.getenv("GITHUB_REF")
         GITHUB_EVENT_NAME = os.getenv("GITHUB_EVENT_NAME")
-        self.triggered_by_push_to_main = GITHUB_REF == "refs/heads/main" and GITHUB_EVENT_NAME == "push"
+        self.triggered_from_main = (GITHUB_REF == "refs/heads/main" and
+                                    GITHUB_EVENT_NAME in ("push", "workflow_dispatch"))
         h2(f"Github Action Details:")
         print(f"Triggered by Github Event: {GITHUB_EVENT_NAME}")
         print(f"Triggered by Github Ref: {GITHUB_REF}")
-        print(f"Triggered by push to main branch: {self.triggered_by_push_to_main}")
+        print(f"Running on main branch: {self.triggered_from_main}")
 
 
 class PyPi():

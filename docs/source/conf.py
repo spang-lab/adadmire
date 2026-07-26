@@ -34,6 +34,7 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
 }
 
+myst_heading_anchors = 3  # generate anchors for h1-h3, so that in-page links like [Data](#data) work
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
 autoclass_content = "both"  # Add __init__ doc (ie. params) to class summaries
 html_show_sourcelink = True  # Remove 'view source code' from top of page (for html, not python)
