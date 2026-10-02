@@ -9,7 +9,7 @@ authors = [
   { name="Lena Buck", email="lena.buck@ukr.de" },
   { name="Tobias Schmidt", email="tobias2.schmidt@ukr.de" },
 ]
-description = "Functions for detecting anomalies in molecular data sets using Mixed Graphical Models."
+description = "Functions for detecting anomalies in tabular datasets using Mixed Graphical Models."
 dependencies = [
   "numpy >= 1.20",
   "scipy >= 1",
