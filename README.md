@@ -56,3 +56,9 @@ You can find the full documentation for adadmire at [spang-lab.github.io/adadmir
 - [Contributing](https://spang-lab.github.io/adadmire/contributing.html)
 - [Testing](https://spang-lab.github.io/adadmire/testing.html)
 - [Documentation](https://spang-lab.github.io/adadmire/documentation.html)
+
+## Citation
+
+If you use adadmire in your research, please cite:
+
+Buck L, Schmidt T, Feist M, Schwarzfischer P, Kube D, Oefner PJ, Zacharias HU, Altenbuchinger M, Dettmer K, Gronwald W, Spang R. Anomaly detection in mixed high-dimensional molecular data. Bioinformatics. 2023;39(8):btad501. [doi:10.1093/bioinformatics/btad501](https://doi.org/10.1093/bioinformatics/btad501)

@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath('../../src/adadmire'))  # Source code dir rel
 
 # Project Info
 project = 'adadmire'
-copyright = '2023, Lena Buck, Tobias Schmidt'
+copyright = '2023-2026, Lena Buck, Tobias Schmidt'
 author = 'Lena Buck, Tobias Schmidt'
 pyproject = toml.load("../../pyproject.toml")
 release = pyproject['project']['version']

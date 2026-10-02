@@ -1,0 +1,58 @@
+cff-version: 1.2.0
+message: "If you use adadmire in your research, please cite the article below."
+title: adadmire
+type: software
+version: 1.0.16
+abstract: Functions for detecting anomalies in molecular data sets using Mixed Graphical Models.
+license: MIT
+repository-code: https://github.com/spang-lab/adadmire
+url: https://spang-lab.github.io/adadmire/
+keywords:
+  - anomaly detection
+  - mixed graphical model
+  - metabolomics
+  - imputation
+authors:
+  - given-names: Lena
+    family-names: Buck
+    email: lena.buck@ukr.de
+    orcid: https://orcid.org/0000-0002-2575-6969
+  - given-names: Tobias
+    family-names: Schmidt
+    email: tobias2.schmidt@ukr.de
+preferred-citation:
+  type: article
+  title: Anomaly detection in mixed high-dimensional molecular data
+  journal: Bioinformatics
+  year: 2023
+  month: 8
+  volume: 39
+  issue: 8
+  start: btad501
+  doi: 10.1093/bioinformatics/btad501
+  url: https://doi.org/10.1093/bioinformatics/btad501
+  authors:
+    - given-names: Lena
+      family-names: Buck
+      orcid: https://orcid.org/0000-0002-2575-6969
+    - given-names: Tobias
+      family-names: Schmidt
+    - given-names: Maren
+      family-names: Feist
+    - given-names: Philipp
+      family-names: Schwarzfischer
+    - given-names: Dieter
+      family-names: Kube
+    - given-names: Peter J.
+      family-names: Oefner
+    - given-names: Helena U.
+      family-names: Zacharias
+    - given-names: Michael
+      family-names: Altenbuchinger
+      orcid: https://orcid.org/0000-0003-1102-6532
+    - given-names: Katja
+      family-names: Dettmer
+    - given-names: Wolfram
+      family-names: Gronwald
+    - given-names: Rainer
+      family-names: Spang
