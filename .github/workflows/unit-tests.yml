@@ -16,15 +16,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {os: ubuntu-latest, python-version: '3.9'}
+          # Keep in sync with requires-python and the classifiers in pyproject.toml
           - {os: ubuntu-latest, python-version: '3.10'}
           - {os: ubuntu-latest, python-version: '3.11'}
           - {os: ubuntu-latest, python-version: '3.12', coverage: true}
           - {os: ubuntu-latest, python-version: '3.13'}
-          - {os: macos-latest, python-version: '3.11'}
-          - {os: macos-latest, python-version: '3.13'}
-          - {os: windows-latest, python-version: '3.11'}
-          - {os: windows-latest, python-version: '3.13'}
+          - {os: ubuntu-latest, python-version: '3.14'}
+          - {os: macos-latest, python-version: '3.10'}
+          - {os: macos-latest, python-version: '3.14'}
+          - {os: windows-latest, python-version: '3.10'}
+          - {os: windows-latest, python-version: '3.14'}
     steps:
       - {name: Checkout repo, uses: actions/checkout@v5}
       - {name: Install python, uses: actions/setup-python@v6, with: {python-version: "${{ matrix.python-version }}"}}
@@ -40,3 +41,15 @@ jobs:
           files: ./coverage.xml
           token: "${{ secrets.CODECOV_TOKEN }}"
           fail_ci_if_error: false
+  keepalive:
+    # GitHub disables scheduled workflows after 60 days without repository
+    # activity. Re-enabling the workflow on every scheduled run resets that
+    # timer, so the monthly runs keep going even when nothing is committed.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Re-enable this workflow
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/unit-tests.yml/enable"
+        env: {GH_TOKEN: "${{ github.token }}"}
