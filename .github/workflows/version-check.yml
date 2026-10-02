@@ -8,7 +8,7 @@ jobs:
     name: Version Check
     runs-on: ubuntu-latest
     steps:
-      - {name: Checkout repo, uses: actions/checkout@v4}
-      - {name: Install python, uses: actions/setup-python@v5, with: {python-version: '3.x'}}
+      - {name: Checkout repo, uses: actions/checkout@v5}
+      - {name: Install python, uses: actions/setup-python@v6, with: {python-version: '3.x'}}
       - {name: Install dependencies, run: "pip install GitPython packaging PyGithub requests toml"}
       - {name: Check version, run: "python make.py version_check"}
