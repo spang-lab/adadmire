@@ -4,8 +4,6 @@ import numpy as np
 import random
 from sklearn.metrics.pairwise import nan_euclidean_distances
 
-__version__ = "1.0.0"
-
 
 def pred_continuous(B, Rho, alphap, D_pred, X_pred):
     """Predict continuous values given estimated
@@ -45,7 +43,7 @@ def pred_discrete(Rho, X_pred, D_pred, alphaq, Phi, levels, p):
         Rho (numpy.ndarray): Continuous-discrete couplings.
         X_pred (numpy.ndarray): Vector of continuous values.
         D_pred (numpy.ndarray): Vector of discrete states for which probabilities should be calculated.
-        alphaq (numpy.ndarray): Continuous node potentials.
+        alphaq (numpy.ndarray): Discrete node potentials.
         Phi (numpy.ndarray): Discrete-discrete couplings.
         levels (list): Levels for discrete states.
         p (int): Number of continuous features.
@@ -270,7 +268,7 @@ def get_threshold_discrete(D, levels, D_hat):
         Tuple: Tuple containing the following elements:
             - n_ano (int): Number of detected anomalies.
             - threshold (float): Threshold value for anomaly detection.
-            - pos (numpy.ndarray): Indices of detected anomalies in matrix X.
+            - pos (numpy.ndarray): Indices of detected anomalies in matrix D.
     """
     np.random.seed(seed=321)
     ind = np.where(D == 1)
@@ -429,7 +427,7 @@ def impute(X, D, levels, lambda_seq, oIterations=10000, oTol=1e-6):
         tuple: Tuple containing the following elements:
             - numpy.ndarray: Imputed continuous data.
             - numpy.ndarray: Imputed discrete data.
-            - float: Optimal lambda_seq value used for imputation.
+            - numpy.ndarray: One-element array holding the optimal value from lambda_seq used for imputation.
     """
     # calculate Euclidean distance of all samples to each other
     # ignore NaN values
@@ -531,7 +529,7 @@ def penalty(X, D, min, max, step):
         - X (numpy.ndarray): Continuous Data matrix, features in columns, samples in rows.
         - D (numpy.ndarray): Discrete states matrix in one-hot-encoding, features in columns, samples in rows.
         - min (float): The minimum exponent for the penalty parameter.
-        - max (float): The maximum exponent for the penalty parameter.
+        - max (float): The upper bound for the exponent of the penalty parameter (exclusive, as in numpy.arange).
         - step (float): The step size between consecutive exponents.
 
     Returns:
@@ -556,6 +554,7 @@ def admire(X, D, levels, lam, oIterations=10000, oTol=1e-6, t=0.05):
         - lam: (numpy.ndarray): Sequence of penalty values.
         - oIterations (int, optional): Number of iterations for fitting MGMs. Defaults to 10000.
         - oTol (float, optional): Tolerance for fitting MGMs. Defaults to 1e-6.
+        - t (float, optional): Probability threshold value for smoothing corrections. Defaults to 0.05.
 
     Returns:
         tuple: Tuple containing the following elements:
@@ -567,7 +566,8 @@ def admire(X, D, levels, lam, oIterations=10000, oTol=1e-6, t=0.05):
             - position_disc (numpy.ndarray): Positions of detected discrete anomalies in D.
     """
     # perform cross validation
-    prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(X, D, levels, lam)
+    prob_hat, B_m, lam_opt,  x_hat, d_hat = loo_cv_cor(
+        X, D, levels, lam, oIterations=oIterations, oTol=oTol, t=t)
     # determine continuous threshold
     X_cor, threshold_cont, n_cont,  position_cont = get_threshold_continuous(X, x_hat, B_m)
     # determine discrete threshold
