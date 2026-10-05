@@ -17,6 +17,7 @@ jobs:
       matrix:
         include:
           # Keep in sync with requires-python and the classifiers in pyproject.toml
+          - {os: ubuntu-latest, python-version: '3.9'}
           - {os: ubuntu-latest, python-version: '3.10'}
           - {os: ubuntu-latest, python-version: '3.11'}
           - {os: ubuntu-latest, python-version: '3.12', coverage: true}
