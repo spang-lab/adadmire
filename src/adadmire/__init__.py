@@ -3,7 +3,7 @@ from importlib.metadata import PackageNotFoundError, version
 
 try:
     __version__ = version("adadmire")
-except PackageNotFoundError:  # e.g. imported from a source checkout without installation
+except PackageNotFoundError:  # pragma: no cover (source checkout without installation)
     __version__ = "unknown"
 
 from adadmire.main import (
