@@ -1,4 +1,11 @@
 """adadmire: Anomaly detection in mixed high-dimensional molecular data."""
+from importlib.metadata import PackageNotFoundError, version
+
+try:
+    __version__ = version("adadmire")
+except PackageNotFoundError:  # pragma: no cover (source checkout without installation)
+    __version__ = "unknown"
+
 from adadmire.main import (
     get_threshold_continuous,
     get_threshold_discrete,

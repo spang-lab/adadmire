@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "adadmire"
-version = "1.0.15"
+version = "1.0.16"
 authors = [
   { name="Lena Buck", email="lena.buck@ukr.de" },
   { name="Tobias Schmidt", email="tobias2.schmidt@ukr.de" },
@@ -30,6 +30,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
 

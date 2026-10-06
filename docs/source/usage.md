@@ -32,7 +32,7 @@ print(position_disc) # Position in D
 ## Example 2
 
 ```python
-from adadmire import admire, place_anomalies_continuous
+from adadmire import admire, penalty, place_anomalies_continuous
 import numpy as np
 
 X = np.load('data/Higuera_et_al/scaled_data_raw.npy') # continuous data
@@ -87,13 +87,13 @@ In the directory **data** you can find two sub directories:
 * `Feist_et_al`: contains data set as described in [Feist et al, 2018](#feist-et-al-2018) and [Buck et al, 2023](#buck-et-al-2023).
     * `data_raw.xlsx`: raw, unscaled data, contains measurements of 100 samples and 49 metabolites
     *  `scaled_data_raw.npy`: numpy file containing scaled version of `data_raw.xlsx`
-    *  `pheno_with_simulations.xlsx`: pheno data corresponding to `data_raw.xlsx`, also contains cell stimulations
-    *  `pheno.npy`: numpy file corresponding to `pheno_with_simulations.xlsx` (only contains variables batch and myc)
+    *  `pheno_with_stimulations.xlsx`: pheno data corresponding to `data_raw.xlsx`, also contains cell stimulations
+    *  `pheno.npy`: numpy file corresponding to `pheno_with_stimulations.xlsx` (only contains variables batch and myc)
     *  `levels.npy`: numpy file containing the levels of the discrete variables in `pheno.npy`
 * `Higuera_et_al`: contains down sampled data set from [Higuera et al, 2015](#higuera-et-al-2015) as described in [Buck et al, 2023](#buck-et-al-2023).
     * `data_raw.xlsx`: raw, unscaled data, contains measurements of 400 samples and 68 proteins (down sampled from [Higuera et al, 2015](#higuera-et-al-2015))
     *  `scaled_data_raw.npy`: numpy file containing scaled version of `data_raw.xlsx`
-    *  `pheno_.xlsx`: pheno data corresponding to `data_raw.xlsx`
+    *  `pheno.xlsx`: pheno data corresponding to `data_raw.xlsx`
     *  `pheno.npy`: numpy file corresponding to `pheno.xlsx`
     *  `levels.npy`: numpy file containing the levels of the discrete variables in `pheno.npy`
     *  `data_na_scaled.npy`: numpy file containing scaled version of `data_raw.xlsx` where 5% of the values are missing
@@ -111,4 +111,4 @@ Higuera, Clara, et al. ["Self-organizing feature maps identify proteins critical
 
 ### Buck et al, 2023
 
-Buck, Lena et al. ["Anomaly detection in mixed high dimensional molecular data"](https://doi.org/10.1093/bioinformatics/btad501) Bioinformatics, 2023
+Buck L, Schmidt T, Feist M, Schwarzfischer P, Kube D, Oefner PJ, Zacharias HU, Altenbuchinger M, Dettmer K, Gronwald W, Spang R. ["Anomaly detection in mixed high-dimensional molecular data."](https://doi.org/10.1093/bioinformatics/btad501) Bioinformatics, 2023;39(8):btad501.

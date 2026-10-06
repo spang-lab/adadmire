@@ -10,7 +10,7 @@ jobs:
     name: Github Release
     runs-on: ubuntu-latest
     steps:
-      - {name: Checkout repo,  uses: actions/checkout@v4, with: {fetch-depth: 0}}
-      - {name: Setup python,   uses: actions/setup-python@v5, with: {python-version: '3.x'}}
+      - {name: Checkout repo,  uses: actions/checkout@v5, with: {fetch-depth: 0}}
+      - {name: Setup python,   uses: actions/setup-python@v6, with: {python-version: '3.x'}}
       - {name: Install deps,   run: "pip install -r make_requirements.txt"}
       - {name: Create Release, run: "python make.py gh_release"}
